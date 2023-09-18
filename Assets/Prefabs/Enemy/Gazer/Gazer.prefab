@@ -149,5 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _GrowthRate: 1.1
-  _MaxSize: 5
+  _growthRate: 1.1
+  _maxSize: 5
+  _damage: 1
