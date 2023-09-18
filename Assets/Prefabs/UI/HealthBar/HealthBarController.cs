@@ -5,6 +5,7 @@ public class HealthBarController : MonoBehaviour
     
     [SerializeField] private GameObject _heartPrefab;
     [SerializeField] private int _startHealth;
+    [SerializeField] private Side _side;
 
 
     private int _health;
@@ -43,11 +44,25 @@ public class HealthBarController : MonoBehaviour
 
         for (int i = 0; i < _health; i++)
         {
-            GameObject heart = Instantiate(_heartPrefab, transform);
-            heart.transform.parent = transform;
-            heart.transform.localPosition += new Vector3(i * heart.GetComponent<RectTransform>().rect.width + 5, 0, 0);
+            if (_side == Side.Left) {
+                GameObject heart = Instantiate(_heartPrefab, transform);
+                heart.transform.parent = transform;
+                heart.transform.localPosition += new Vector3(i * heart.GetComponent<RectTransform>().rect.width + 5, 0, 0);
+            }
+            else if (_side == Side.Right) {
+                GameObject heart = Instantiate(_heartPrefab, transform);
+                heart.transform.parent = transform;
+                heart.transform.localPosition += new Vector3(-i * heart.GetComponent<RectTransform>().rect.width - 5, 0, 0);
+            }
+            
         }
     }
 
+}
+
+
+public enum Side {
+    Left,
+    Right
 }
 

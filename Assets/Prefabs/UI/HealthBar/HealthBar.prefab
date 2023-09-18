@@ -48,5 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e304e8bc5026ce04391e50897fa9e2c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heartSprite: {fileID: 21300000, guid: 6823e632f55b59e4ebfdbfc6d3f11185, type: 3}
+  _heartPrefab: {fileID: 5551375845489729703, guid: 037d39e1a22033a42b040a5b08bdd240,
+    type: 3}
   _startHealth: 3
