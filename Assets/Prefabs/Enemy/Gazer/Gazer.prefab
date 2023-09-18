@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5102630332553131196}
   - component: {fileID: 4861297503269942271}
   - component: {fileID: 7676494607610259797}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gazer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 55
@@ -123,7 +123,7 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: cffdc183bf07d8942822a98d0a97af62, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 55
@@ -148,7 +148,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7caeb03d90008e49a704b0a58a52176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
-  _growthRate: 1.1
+  _speed: 10
+  _growthRate: 1
+  _minSize: 1
   _maxSize: 5
   _damage: 1
+  _chargeSpeed: 30
+  _chargeTime: 2
+  _chargeCooldown: 5
+  _gameOverScreen: {fileID: 0}
