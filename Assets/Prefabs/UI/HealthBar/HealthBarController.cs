@@ -46,12 +46,12 @@ public class HealthBarController : MonoBehaviour
         {
             if (_side == Side.Left) {
                 GameObject heart = Instantiate(_heartPrefab, transform);
-                heart.transform.parent = transform;
+                heart.transform.SetParent(transform);
                 heart.transform.localPosition += new Vector3(i * heart.GetComponent<RectTransform>().rect.width + 5, 0, 0);
             }
             else if (_side == Side.Right) {
                 GameObject heart = Instantiate(_heartPrefab, transform);
-                heart.transform.parent = transform;
+                heart.transform.SetParent(transform);
                 heart.transform.localPosition += new Vector3(-i * heart.GetComponent<RectTransform>().rect.width - 5, 0, 0);
             }
             

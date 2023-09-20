@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance = null;
     private float _startTime;
-    private bool _spawnedGazer1 = false;
-    private bool _spawnedGazer2 = false;
+    private bool _spawnedGazer1 = true;
+    private bool _spawnedGazer2 = true;
     private bool _gameOver = false;
 
 
