@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        UiShait.Instance.updateStamina(playerIndex, currentStamina / currentMaxStamina);
 
         if (moveInput == Vector2.zero)
         {
@@ -145,23 +146,30 @@ public class PlayerMovement : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        //update healthbar
+        UiShait.Instance.updateHealth(playerIndex, currentHealth);
         if (currentHealth <= 0) Debug.Log("Player died");
     }
 
     public void Heal(int healAmount)
     {
         currentHealth += healAmount;
+
         if (currentHealth > moveStats.MaxHealth) currentHealth = moveStats.MaxHealth;
+        //update healthbar
+        UiShait.Instance.updateHealth(playerIndex, currentHealth);
     }
 
     public void EmptyStamina()
     {
         currentStamina = 0;
+        
     }
 
     public void FillStamina()
     {
         currentStamina = moveStats.MaxStamina;
+        
     }
     public void AddStamina(int amount)
     {
@@ -171,6 +179,7 @@ public class PlayerMovement : MonoBehaviour
 
         StopCoroutine(ResetMaxStaminaToNormal());
         StartCoroutine(ResetMaxStaminaToNormal());
+        
         
         
     }

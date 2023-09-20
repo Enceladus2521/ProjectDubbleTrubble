@@ -93,6 +93,7 @@ public class GazerController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Player")) {
             other.gameObject.GetComponent<PlayerMovement>().TakeDamage((int)_damage);
+            Debug.Log("Player hit by gazer");
         }
     }
 

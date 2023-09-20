@@ -16,9 +16,12 @@ public class Munsch : MonoBehaviour
     private List<GameObject> bodyParts;
 
     
-    private void Start()
+    IEnumerator Start()
     {
+
         bodyParts = GetComponent<SnekBody>().bodyParts;
+
+        while (bodyParts.Count == 0) yield return null;
         BaseScale = bodyParts[0].transform.localScale;
     }
 
@@ -57,6 +60,8 @@ public class Munsch : MonoBehaviour
 
     IEnumerator MunschLeftRight(GameObject gameObject)
     {
+        bodyParts = GetComponent<SnekBody>().bodyParts;
+        
         //Foreach body parts to base scale * scaleAmount with scaleSpeed  scale down to base scale then next body part
         foreach (GameObject bodyPart in bodyParts)
         {
@@ -79,6 +84,7 @@ public class Munsch : MonoBehaviour
 
     IEnumerator MunschRightLeft(GameObject gameObject)
     {
+        bodyParts = GetComponent<SnekBody>().bodyParts;
         List<GameObject> LeftbodyParts = Reverse(bodyParts);
         //Foreach body parts to base scale * scaleAmount with scaleSpeed  scale down to base scale then next body part
         foreach (GameObject bodyPart in LeftbodyParts)
