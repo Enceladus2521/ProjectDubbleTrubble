@@ -152,4 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 15
   pickupDistance: 2.5
-  staminaAmount: 10
+  Muschable: 1
+  MunschPrefab: {fileID: 1156659392830566020, guid: efb1c66841e810f4e953e9f1e368260d,
+    type: 3}
+  addMaxStamina: 0
+  staminaAmount: 100
