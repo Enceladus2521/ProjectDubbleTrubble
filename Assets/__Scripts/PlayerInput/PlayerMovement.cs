@@ -10,13 +10,15 @@ using UnityEditor;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-
+    [SerializeField] public byte playerIndex = 0;
 
     #region Variables
 
     #region References
     [SerializeField] private PlayerMoveStats moveStats;
     private Rigidbody rb;
+
+    [SerializeField] public GameObject Munscher;
     #endregion
 
     #region dynamic variables
@@ -94,8 +96,12 @@ public class PlayerMovement : MonoBehaviour
                 decreaseMoveVelocity();
             }
 
-
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveVelocity), moveStats.maxTurnSpeed * Time.deltaTime);
+            
+            //rotate in velocity direction using max turn speed and time.deltaTime
+            if (moveVelocity != Vector3.zero)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveVelocity), moveStats.maxTurnSpeed * Time.deltaTime);
+            }
         }
 
     }
@@ -174,6 +180,7 @@ public class PlayerMovement : MonoBehaviour
         while (currentMaxStamina > moveStats.MaxStamina)
         {
             currentMaxStamina -= moveStats.StaminaDrainReturnSpeed * Time.deltaTime;
+            if(currentStamina > currentMaxStamina) currentStamina = currentMaxStamina;
             yield return null;
         }
         currentMaxStamina = moveStats.MaxStamina;

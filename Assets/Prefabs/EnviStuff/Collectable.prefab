@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 6681734033268919487}
   - component: {fileID: 703533034342289954}
   - component: {fileID: 9002241322711513406}
-  - component: {fileID: 5065941811607511593}
   m_Layer: 0
   m_Name: Collectable
   m_TagString: Untagged
@@ -152,20 +151,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 15
-  pickupDistance: 2.5
-  staminaAmount: 10
---- !u!114 &5065941811607511593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5689132090573171957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71fc83d389542194b8a69422be4e979e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 1
   pickupDistance: 2.5
   staminaAmount: 10

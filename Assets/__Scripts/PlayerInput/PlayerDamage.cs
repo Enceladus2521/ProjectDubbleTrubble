@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
 [RequireComponent(typeof(BoxCollider))]
 public class PlayerDamage : MonoBehaviour
 {
@@ -26,3 +27,8 @@ public class PlayerDamage : MonoBehaviour
         Gizmos.DrawWireCube(transform.position, GetComponent<BoxCollider>().size);
     }
 }
+
+
+
+
+
