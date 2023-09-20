@@ -92,8 +92,7 @@ public class GazerController : MonoBehaviour
             _rigidbody.velocity = direction * _speed;
         }
         else if (other.gameObject.CompareTag("Player")) {
-            //TODO: damage player
-            //other.gameObject.GetComponent<PlayerController>().TakeDamage(_damage);
+            other.gameObject.GetComponent<PlayerMovement>().TakeDamage((int)_damage);
         }
     }
 
