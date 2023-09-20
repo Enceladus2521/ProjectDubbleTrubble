@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance = null;
     private float _startTime;
-    private bool _spawnedGazer1 = true;
-    private bool _spawnedGazer2 = true;
+    private bool _spawnedGazer1 = false;
+    private bool _spawnedGazer2 = false;
     private bool _gameOver = false;
 
 
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Start phase 1");
             GameObject obj = Instantiate(_gazerPrefab, new Vector3(0, 0.001f, 0), Quaternion.identity);
             obj.transform.SetParent(transform);
-            obj.transform.localScale = new Vector3(_gazerSizePhase1, 0, _gazerSizePhase1);
+            obj.transform.localScale = new Vector3(_gazerSizePhase1, _gazerSizePhase1, _gazerSizePhase1);
             _spawnedGazer1 = true;
         }
         else if (Time.time - _startTime > _timeBeforePhase1 + _phase1Duration + _timeBeforePhase2 && Time.time - _startTime < _timeBeforePhase1 + _phase1Duration + _timeBeforePhase2 + _phase2Duration && !_spawnedGazer2) {
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Start phase 2");
             GameObject obj = Instantiate(_gazerPrefab, new Vector3(0, 0.001f, 0), Quaternion.identity);
             obj.transform.SetParent(transform);
-            obj.transform.localScale = new Vector3(_gazerSizePhase2, 0, _gazerSizePhase2);
+            obj.transform.localScale = new Vector3(_gazerSizePhase2, _gazerSizePhase2, _gazerSizePhase2);
             _spawnedGazer2 = true;
         }
         else if (Time.time - _startTime > _timeBeforePhase1 + _phase1Duration + _timeBeforePhase2 + _phase2Duration && !_gameOver) {
