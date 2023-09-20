@@ -18,10 +18,14 @@ public class SnekBody : MonoBehaviour
     public List<GameObject> bodyParts;
 
    
+   private void Awake()
+   {
+        populatebodyParts();
+   }
       
 
     
-
+   
 
     [EButton]
     private void populatebodyParts()
