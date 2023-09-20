@@ -438,7 +438,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 200
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 55
@@ -459,7 +459,7 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: cffdc183bf07d8942822a98d0a97af62, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 200
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 55
