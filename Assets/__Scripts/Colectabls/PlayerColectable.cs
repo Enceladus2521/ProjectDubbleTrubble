@@ -42,8 +42,8 @@ public abstract class PlayerColectable : MonoBehaviour
         if (Muschable)
         {
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
-            playerMovement.Munscher.GetComponent<Munsch>().EatableMunsch(playerMovement.playerIndex);
-            
+            playerMovement.Munscher.GetComponent<Munsch>().EatableMunsch(playerMovement.playerIndex, MunschPrefab);
+
         }
     }
  
@@ -52,7 +52,6 @@ public abstract class PlayerColectable : MonoBehaviour
 
     IEnumerator moveToPlayer()
     {
-        
         while (Vector3.Distance(transform.position, player.transform.position) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, moveSpeed * Time.deltaTime);

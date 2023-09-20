@@ -188,11 +188,11 @@ public class PlayerMovement : MonoBehaviour
     
     public void Bounce(Transform origen,float bounceForce, float moveDisableTime)    
     {        
-        StartCoroutine(enableInput(moveDisableTime));        
+        StartCoroutine(DisableInput(moveDisableTime));        
         rb.AddForce((transform.position - origen.position).normalized * bounceForce, ForceMode.Impulse);
     }
 
-    IEnumerator enableInput(float time)
+    public IEnumerator DisableInput(float time)
     {
         inputEnabled = false;
         moveVelocity = Vector3.zero;

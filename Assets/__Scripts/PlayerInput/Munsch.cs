@@ -39,23 +39,23 @@ public class Munsch : MonoBehaviour
     }
 
     
-    public void EatableMunsch(byte dir = 0)
+    public void EatableMunsch(byte dir, GameObject projectile = null)
     {
         bodyParts = GetComponent<SnekBody>().bodyParts;
 
         if(dir == 0)
         {
-            StartCoroutine(MunschLeftRight());
+            StartCoroutine(MunschLeftRight(projectile));
         }
         else if(dir == 1)
         {
-            StartCoroutine(MunschRightLeft());
+            StartCoroutine(MunschRightLeft(projectile));
         }
         
     }
 
 
-    IEnumerator MunschLeftRight()
+    IEnumerator MunschLeftRight(GameObject gameObject)
     {
         //Foreach body parts to base scale * scaleAmount with scaleSpeed  scale down to base scale then next body part
         foreach (GameObject bodyPart in bodyParts)
@@ -68,10 +68,16 @@ public class Munsch : MonoBehaviour
             while (bodyPart.transform.localScale.x > BaseScale.x) yield return null;           
         }
 
+        if(gameObject != null)
+        {
+            player2.GetComponent<PlayerSpitter>().SpawnProjectile(gameObject);
+        }
+        
+
         
     }
 
-    IEnumerator MunschRightLeft()
+    IEnumerator MunschRightLeft(GameObject gameObject)
     {
         List<GameObject> LeftbodyParts = Reverse(bodyParts);
         //Foreach body parts to base scale * scaleAmount with scaleSpeed  scale down to base scale then next body part
@@ -83,6 +89,11 @@ public class Munsch : MonoBehaviour
             //scale down to base scale
             LeanTween.scale(bodyPart, BaseScale, downScaleSpeed);            
             while (bodyPart.transform.localScale.x > BaseScale.x) yield return null;
+        }
+
+        if (gameObject != null)
+        {
+            player1.GetComponent<PlayerSpitter>().SpawnProjectile(gameObject);
         }
 
     }
