@@ -25,6 +25,15 @@ public class GazerController : MonoBehaviour
     [SerializeField] private LookDirection _lookDirection = LookDirection.Right;
     [SerializeField] private float _moveRadius = 1f;
     [SerializeField] private float _moveSpeed = 1f;
+
+    [Header("TrailVFX")]
+    [SerializeField] private UnityEngine.VFX.VisualEffect _trailEffect;
+    [SerializeField] private bool _enabled = true;
+    [SerializeField] private float _trailSpawnRate = 10f;
+    [SerializeField] private float _trailSpeed = 1f;
+    [SerializeField] private Vector2 _trailLifetime = new Vector2(1f, 1f);
+    [SerializeField] private float _trailParticleSize = 1f;
+    [SerializeField] private float _trailWidth = 1f;
     
 
 
@@ -41,6 +50,9 @@ public class GazerController : MonoBehaviour
     private Vector3 _faceMoveDirection;
 
 
+    private void OnValidate() {
+        _trailEffect.SetBool("isSpawning", false);
+    }
 
     private void Awake()
     {
@@ -50,6 +62,13 @@ public class GazerController : MonoBehaviour
         _cameraMainRight = _cameraMain.transform.right;
         _startTime = Time.time;
         _time = Time.time;
+
+        //set trail effect values
+        _trailEffect.SetFloat("SpawnRate", _trailSpawnRate);
+        _trailEffect.SetFloat("TrailSpeed", _trailSpeed);
+        _trailEffect.SetVector2("TrailLifetime", _trailLifetime);
+        _trailEffect.SetFloat("TrailScale", _trailParticleSize);
+        _trailEffect.SetBool("isSpawning", _enabled);
     }
 
 
@@ -103,6 +122,16 @@ public class GazerController : MonoBehaviour
             _charging = true;
             StartCoroutine(charge());
         }
+
+
+        Vector3 gazerMoveDirection = _rigidbody.velocity;
+        _trailEffect.SetVector3("TrailDirection", gazerMoveDirection * -1f);
+        //trails trailwidth is a Vector3, which is placed at a 90 degree angle to the trail direction, with the float trailwidth as the width
+        _trailEffect.SetVector3("TrailWidth", Vector3.Cross(gazerMoveDirection, Vector3.up).normalized * _trailWidth);
+
+        //set trail spawnrate according to the speed of the gazer
+        _trailEffect.SetFloat("SpawnRate", gazerMoveDirection.magnitude * _trailSpawnRate);
+
 
         //rotate eye1 in direction of the player
         if (_players.Count > 0) {
