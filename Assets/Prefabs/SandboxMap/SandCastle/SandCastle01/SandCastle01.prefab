@@ -173,6 +173,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SandCastle01
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f9395096d921a4b4b8a5e59b9e2d07f2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f9395096d921a4b4b8a5e59b9e2d07f2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bounds
+      objectReference: {fileID: 0}
     - target: {fileID: 2626486041742122527, guid: f9395096d921a4b4b8a5e59b9e2d07f2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -231,5 +241,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f9395096d921a4b4b8a5e59b9e2d07f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6304125944229840999}
   m_SourcePrefab: {fileID: 100100000, guid: f9395096d921a4b4b8a5e59b9e2d07f2, type: 3}
+--- !u!1 &1279976683161051109 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f9395096d921a4b4b8a5e59b9e2d07f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2090248376482652852}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &6304125944229840999
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279976683161051109}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.45156425
+  m_Height: 1.8316
+  m_Direction: 1
+  m_Center: {x: -0, y: 0.41579986, z: 0}
