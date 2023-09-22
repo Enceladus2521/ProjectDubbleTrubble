@@ -993,8 +993,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player1HealthBar: {fileID: 3825244203903669446}
   Player2HealthBar: {fileID: 4732347985692567462}
-  Player1StaminaBar: {fileID: 4779967443019666471}
-  Player2StaminaBar: {fileID: 3820017162971926163}
+  Player1StaminaBar: {fileID: 3820017162971926163}
+  Player2StaminaBar: {fileID: 4779967443019666471}
   player1Ui: {fileID: 3350068816035671910}
   player2Ui: {fileID: 5275085066207544582}
   UIyOffset: 1
