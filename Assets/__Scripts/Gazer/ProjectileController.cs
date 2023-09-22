@@ -102,6 +102,7 @@ public class ProjectileController : MonoBehaviour
         else if (other.gameObject.CompareTag("Player")) {
             other.gameObject.GetComponent<PlayerMovement>().TakeDamage((int)_currentDamage);
             Debug.Log("Player hit by gazer");
+            LeanTween.cancel(gameObject);
             Destroy(gameObject);
         }
     }

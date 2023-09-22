@@ -384,6 +384,9 @@ public class GazerController : MonoBehaviour
             });
 
             while (bullet.transform.localScale.x < shotgunAttack._bulletSize) {
+                if(bullet == null) {
+                    break;
+                }
                 yield return null;
             }
         }

@@ -448,7 +448,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 1
 --- !u!136 &4861297503269942271
 CapsuleCollider:
@@ -906,7 +906,7 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array:
-      - m_Value: 0
+      - m_Value: 1
         m_Name: isSpawning
         m_Overridden: 1
 --- !u!73398921 &8453193869559375217
