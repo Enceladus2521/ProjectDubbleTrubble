@@ -69,12 +69,19 @@ public class Munsch : MonoBehaviour
         //Foreach body parts to base scale * scaleAmount with scaleSpeed  scale down to base scale then next body part
         foreach (GameObject bodyPart in bodyParts)
         {
-            LeanTween.scale(bodyPart, BaseScale * scaleAmount, scaleSpeed);
-            while (bodyPart.transform.localScale.x < BaseScale.x * scaleAmount) yield return null;
+            GameObject bodyPartClone = Instantiate(bodyPart, bodyPart.transform.position, bodyPart.transform.rotation);
+            bodyPartClone.transform.SetParent(bodyPart.transform.parent);
+            bodyPartClone.transform.localScale = bodyPart.transform.localScale;
+
+            LeanTween.scale(bodyPartClone, BaseScale * scaleAmount, scaleSpeed);
+            while (bodyPartClone.transform.localScale.x < BaseScale.x * scaleAmount) yield return null;           
+           
             
-            //scale down to base scale
-            LeanTween.scale(bodyPart, BaseScale, downScaleSpeed);
-            while (bodyPart.transform.localScale.x > BaseScale.x) yield return null;           
+            LeanTween.scale(bodyPartClone, BaseScale, downScaleSpeed);
+            while (bodyPartClone.transform.localScale.x > BaseScale.x) yield return null;  
+
+            LeanTween.cancel(bodyPartClone);
+            Destroy(bodyPartClone);       
         }
 
         if(gameObject != null)
@@ -94,12 +101,19 @@ public class Munsch : MonoBehaviour
         //Foreach body parts to base scale * scaleAmount with scaleSpeed  scale down to base scale then next body part
         foreach (GameObject bodyPart in LeftbodyParts)
         {
-            LeanTween.scale(bodyPart, BaseScale * scaleAmount, scaleSpeed);
-            while (bodyPart.transform.localScale.x < BaseScale.x * scaleAmount) yield return null;
+            GameObject bodyPartClone = Instantiate(bodyPart, bodyPart.transform.position, bodyPart.transform.rotation);
+            bodyPartClone.transform.SetParent(bodyPart.transform.parent);
+            bodyPartClone.transform.localScale = bodyPart.transform.localScale;
+
+            LeanTween.scale(bodyPartClone, BaseScale * scaleAmount, scaleSpeed);
+            while (bodyPartClone.transform.localScale.x < BaseScale.x * scaleAmount) yield return null;
 
             //scale down to base scale
-            LeanTween.scale(bodyPart, BaseScale, downScaleSpeed);            
-            while (bodyPart.transform.localScale.x > BaseScale.x) yield return null;
+            LeanTween.scale(bodyPartClone, BaseScale, downScaleSpeed);            
+            while (bodyPartClone.transform.localScale.x > BaseScale.x) yield return null;
+
+            LeanTween.cancel(bodyPartClone);
+            Destroy(bodyPartClone);
         }
 
         if (gameObject != null)

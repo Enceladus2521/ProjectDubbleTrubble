@@ -11,6 +11,7 @@ using UnityEditor;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] public byte playerIndex = 0;
+    
 
     #region Variables
 
