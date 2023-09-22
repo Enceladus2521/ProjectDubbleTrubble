@@ -1443,7 +1443,7 @@ Transform:
   m_GameObject: {fileID: 1161703915}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: -341.69, y: -1193, z: 809.65}
+  m_LocalPosition: {x: -340.3, y: 34.6, z: -446.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2831,6 +2831,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wiese
+      objectReference: {fileID: 0}
+    - target: {fileID: 3845842792893751080, guid: 4744b2de6871afb4bbd9aeb0eed5a21b,
+        type: 3}
+      propertyPath: m_DetailObjectDistance
+      value: 121
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
