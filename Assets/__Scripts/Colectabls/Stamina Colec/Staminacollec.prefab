@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 703533034342289954}
   - component: {fileID: 9002241322711513406}
   m_Layer: 0
-  m_Name: Collectable
+  m_Name: Staminacollec
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 2e8113252e9a1b245a81dc384ae86446, type: 3}
   m_NavMeshLayer: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71fc83d389542194b8a69422be4e979e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  moveSpeed: 100
   pickupDistance: 2.5
   Muschable: 1
   MunschPrefab: {fileID: 1156659392830566020, guid: efb1c66841e810f4e953e9f1e368260d,

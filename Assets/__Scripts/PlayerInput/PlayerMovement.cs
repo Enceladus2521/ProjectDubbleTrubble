@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Vector3 moveVelocity;
 
-    
+
     private float timeSinceLastMoveInput;
     public float timeDifference;
     #endregion
@@ -50,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
         currentStamina = moveStats.MaxStamina;
         currentMaxStamina = moveStats.MaxStamina;
 
+        UiShait.Instance.updateHealth(playerIndex, currentHealth);
+
 
     }
 
@@ -57,7 +59,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        UiShait.Instance.updateStamina(playerIndex, currentStamina / currentMaxStamina);
+        if(UiShait.Instance == null) Debug.LogWarning("UiShait is null on PlayerMovement");
+        else UiShait.Instance.updateStamina(playerIndex, currentStamina / currentMaxStamina);        
 
         if (moveInput == Vector2.zero)
         {
@@ -93,11 +96,11 @@ public class PlayerMovement : MonoBehaviour
                 moveVelocity = Vector3.Lerp(moveVelocity, newMoveInput * moveStats.maxMoveSpeed, moveStats.accelerationCurve.Evaluate(Time.deltaTime / moveStats.accelerationTime));
             }
             else
-            {                                
+            {
                 decreaseMoveVelocity();
             }
 
-            
+
             //rotate in velocity direction using max turn speed and time.deltaTime
             if (moveVelocity != Vector3.zero)
             {
@@ -143,12 +146,27 @@ public class PlayerMovement : MonoBehaviour
 
 
     #region public functions
+
+    private bool invincible = false;
     public void TakeDamage(int damage)
     {
+        if (invincible) return;
         currentHealth -= damage;
         //update healthbar
         UiShait.Instance.updateHealth(playerIndex, currentHealth);
         if (currentHealth <= 0) Debug.Log("Player died");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            StartCoroutine(player.GetComponent<PlayerMovement>().Invincibility());
+        }
+    }
+
+    public IEnumerator Invincibility()
+    {
+        invincible = true;
+        yield return new WaitForSeconds(moveStats.invincibilityTime);
+        invincible = false;        
     }
 
     public void Heal(int healAmount)
@@ -160,16 +178,25 @@ public class PlayerMovement : MonoBehaviour
         UiShait.Instance.updateHealth(playerIndex, currentHealth);
     }
 
+
+
+    public void FillHealth()
+    {
+        currentHealth = moveStats.MaxHealth;
+        //update healthbar
+        UiShait.Instance.updateHealth(playerIndex, currentHealth);
+    }
+
     public void EmptyStamina()
     {
         currentStamina = 0;
-        
+
     }
 
     public void FillStamina()
     {
         currentStamina = moveStats.MaxStamina;
-        
+
     }
     public void AddStamina(int amount)
     {
@@ -179,9 +206,6 @@ public class PlayerMovement : MonoBehaviour
 
         StopCoroutine(ResetMaxStaminaToNormal());
         StartCoroutine(ResetMaxStaminaToNormal());
-        
-        
-        
     }
 
     IEnumerator ResetMaxStaminaToNormal()
@@ -189,15 +213,15 @@ public class PlayerMovement : MonoBehaviour
         while (currentMaxStamina > moveStats.MaxStamina)
         {
             currentMaxStamina -= moveStats.StaminaDrainReturnSpeed * Time.deltaTime;
-            if(currentStamina > currentMaxStamina) currentStamina = currentMaxStamina;
+            if (currentStamina > currentMaxStamina) currentStamina = currentMaxStamina;
             yield return null;
         }
         currentMaxStamina = moveStats.MaxStamina;
     }
-    
-    public void Bounce(Transform origen,float bounceForce, float moveDisableTime)    
-    {        
-        StartCoroutine(DisableInput(moveDisableTime));        
+
+    public void Bounce(Transform origen, float bounceForce, float moveDisableTime)
+    {
+        StartCoroutine(DisableInput(moveDisableTime));
         rb.AddForce((transform.position - origen.position).normalized * bounceForce, ForceMode.Impulse);
     }
 

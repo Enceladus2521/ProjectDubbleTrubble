@@ -37,6 +37,9 @@ public class PlayerMoveStats : ScriptableObject
     [Tooltip("The maximum health the player can have.")]
     public int MaxHealth = 3;
 
+    [Tooltip("The time the player is invincible after taking damage.")]
+    public float invincibilityTime = 1f;
+
 
 
 

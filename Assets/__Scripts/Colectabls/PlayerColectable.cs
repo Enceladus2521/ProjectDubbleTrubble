@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public abstract class PlayerColectable : MonoBehaviour
 {
 
-    [SerializeField] private float moveSpeed = 15f;
+    [SerializeField] private float moveSpeed = 100f;
     [SerializeField] private float pickupDistance = 2.5f;
     [SerializeField] private bool Muschable = false;
     [SerializeField] private GameObject MunschPrefab;
@@ -58,6 +58,7 @@ public abstract class PlayerColectable : MonoBehaviour
             yield return null;
         }
         Colect();
+        Debug.Log("Collected");
         Munscher();
         
         Destroy(gameObject);

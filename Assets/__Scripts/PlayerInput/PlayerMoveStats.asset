@@ -91,8 +91,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   decelerationTime: 0.03
   maxTurnSpeed: 10
-  MaxHealth: 24
-  MaxStamina: 37
+  MaxHealth: 3
+  invincibilityTime: 1
+  MaxStamina: 5000
   StaminaRegenSpeed: 5
   StaminaRegenDelay: 0.5
   StaminaDrainSpeed: 5
