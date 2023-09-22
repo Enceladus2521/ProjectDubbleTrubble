@@ -221,6 +221,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SandCastle02
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a16ad06be9eac9346862135f4bebfdb9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a16ad06be9eac9346862135f4bebfdb9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bounds
+      objectReference: {fileID: 0}
     - target: {fileID: 2626486041742122527, guid: a16ad06be9eac9346862135f4bebfdb9,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -250,8 +260,39 @@ PrefabInstance:
         type: 3}
       insertIndex: 1
       addedObject: {fileID: 986997662064736523}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a16ad06be9eac9346862135f4bebfdb9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2026736156683636467}
   m_SourcePrefab: {fileID: 100100000, guid: a16ad06be9eac9346862135f4bebfdb9, type: 3}
+--- !u!1 &379375110887095573 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a16ad06be9eac9346862135f4bebfdb9,
+    type: 3}
+  m_PrefabInstance: {fileID: 685293121818427460}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2026736156683636467
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379375110887095573}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.58412147, y: 0.62335795, z: 0.5768068}
+  m_Center: {x: -0, y: 0.25064728, z: 0}
 --- !u!4 &1011092252136368047 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a16ad06be9eac9346862135f4bebfdb9,
