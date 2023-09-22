@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 7676494607610259797}
   m_Layer: 6
   m_Name: Gazer
-  m_TagString: Untagged
+  m_TagString: Gazer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -490,6 +490,8 @@ MonoBehaviour:
   _minSize: 1
   _maxSize: 5
   _damage: 1
+  _knockback: 500
+  _knockbackTime: 1
   _canCharge: 1
   _chargeSpeed: 30
   _chargeTime: 2

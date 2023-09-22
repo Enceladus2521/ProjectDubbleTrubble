@@ -12,6 +12,8 @@ public class GazerController : MonoBehaviour
     [SerializeField] private float _minSize = 1f;
     [SerializeField] private float _maxSize = 1f;
     [SerializeField] private float _damage = 1f;
+    [SerializeField] private float _knockback = 500f;
+    [SerializeField] private float _knockbackTime = 1f;
     [SerializeField] private bool _canCharge = true;
     [SerializeField] private float _chargeSpeed = 1f;
     [SerializeField] private float _chargeTime = 1f;
@@ -112,7 +114,8 @@ public class GazerController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Player")) {
             other.gameObject.GetComponent<PlayerMovement>().TakeDamage((int)_damage);
-            Debug.Log("Player hit by gazer");
+            other.gameObject.GetComponent<PlayerMovement>().Bounce(transform, _knockback, _knockbackTime);
+            //Debug.Log("Player hit by gazer");
         }
     }
 

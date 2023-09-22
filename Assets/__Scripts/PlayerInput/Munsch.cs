@@ -47,7 +47,7 @@ public class Munsch : MonoBehaviour
     public void EatableMunsch(byte dir, GameObject projectile = null)
     {
         bodyParts = GetComponent<SnekBody>().bodyParts;
-        Debug.Log("bodyParts.Count: " + bodyParts.Count);
+        //Debug.Log("bodyParts.Count: " + bodyParts.Count);
 
         if(dir == 0)
         {
@@ -89,7 +89,7 @@ public class Munsch : MonoBehaviour
     IEnumerator MunschRightLeft(GameObject gameObject)
     {
         bodyParts = GetComponent<SnekBody>().bodyParts;
-        Debug.Log("bodyParts.Count: " + bodyParts.Count);
+        //Debug.Log("bodyParts.Count: " + bodyParts.Count);
         List<GameObject> LeftbodyParts = Reverse(bodyParts);
         //Foreach body parts to base scale * scaleAmount with scaleSpeed  scale down to base scale then next body part
         foreach (GameObject bodyPart in LeftbodyParts)

@@ -6,22 +6,33 @@ using UnityEngine;
 public abstract class BaseProjectile : MonoBehaviour
 {
     [SerializeField] float StartVelocity = 15f;
-    [SerializeField] float TimeToLive = 15f;
+    [Tooltip("Dont use this!!!!!!")]
+    [SerializeField] float SpawnDistance = 0f;
+    [SerializeField] protected float TimeToLive = 15f;
     [SerializeField] float spreadAngle = 0f;
+
+    [Header("Subprojectiles")]
     [SerializeField] int subProjectiles = 0;
     [SerializeField] GameObject subProjectilePrefab;
+
+    
     private Rigidbody rb;
     
     protected GameObject Player;
 
 
+
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();   
+        
+       
     }
     
     private void Start()
     {
+        if(SpawnDistance > 0)transform.position += transform.forward * SpawnDistance;
+        
         if(subProjectiles > 0 && subProjectilePrefab != null) //if subprojectiles are set, shoot them instead
         {
             
@@ -46,7 +57,7 @@ public abstract class BaseProjectile : MonoBehaviour
         StartCoroutine(DestroyAfterTime());
     }
 
-    IEnumerator DestroyAfterTime()
+    public virtual IEnumerator DestroyAfterTime()
     {        
         yield return new WaitForSeconds(TimeToLive);
         LeanTween.scale(gameObject, Vector3.zero, 0.2f).setOnComplete(() => Destroy(gameObject));        

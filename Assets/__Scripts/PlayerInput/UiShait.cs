@@ -12,10 +12,28 @@ public class UiShait : MonoBehaviour
 
     public GameObject Player1StaminaBar;
     public GameObject Player2StaminaBar;
+
+    [SerializeField] private GameObject player1Ui;
+    [SerializeField] private GameObject player2Ui;
+
+    [SerializeField] float UIyOffset = 1f;
+
+    private GameObject[] players;
     
     private void Awake()
     {
         Instance = this;
+        players = GameObject.FindGameObjectsWithTag("Player");
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {            
+        //set the ui to the player position
+        player1Ui.transform.position = players[0].transform.position + new Vector3(0,UIyOffset,0);
+        player2Ui.transform.position = players[1].transform.position + new Vector3(0,UIyOffset,0);
     }
 
     public void updateHealth(byte index, int currentHealth){

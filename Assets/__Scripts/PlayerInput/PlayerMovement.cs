@@ -37,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
     public float currentStamina;
     public float currentMaxStamina;
 
+    public float currentMaxSpeed;
+
+    
+
     #endregion
 
     #endregion
@@ -49,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         currentHealth = moveStats.MaxHealth;
         currentStamina = moveStats.MaxStamina;
         currentMaxStamina = moveStats.MaxStamina;
+        currentMaxSpeed = moveStats.maxMoveSpeed;
 
         UiShait.Instance.updateHealth(playerIndex, currentHealth);
 
@@ -93,7 +98,8 @@ public class PlayerMovement : MonoBehaviour
             if (currentStamina > 0)
             {
                 //accelerate to max speed using acceleration curve and acceleration time and time.deltaTime
-                moveVelocity = Vector3.Lerp(moveVelocity, newMoveInput * moveStats.maxMoveSpeed, moveStats.accelerationCurve.Evaluate(Time.deltaTime / moveStats.accelerationTime));
+                moveVelocity = Vector3.Lerp(moveVelocity, newMoveInput * currentMaxSpeed, moveStats.accelerationCurve.Evaluate(Time.deltaTime / moveStats.accelerationTime));
+                //ToDo: Add custom max speed for each player
             }
             else
             {
@@ -231,6 +237,19 @@ public class PlayerMovement : MonoBehaviour
         moveVelocity = Vector3.zero;
         yield return new WaitForSeconds(time);
         inputEnabled = true;
+    }
+
+    public void AddBoost(float ProcentualSpeedBoost, float boostTime)
+    {
+        StopCoroutine(Boost());
+        StartCoroutine(Boost(ProcentualSpeedBoost, boostTime));
+    }
+
+    IEnumerator Boost(float boostAmount = 1f, float boostTime = 1f)
+    {
+        currentMaxSpeed = moveStats.maxMoveSpeed * boostAmount;
+        yield return new WaitForSeconds(boostTime);
+        currentMaxSpeed = moveStats.maxMoveSpeed;
     }
 
 
