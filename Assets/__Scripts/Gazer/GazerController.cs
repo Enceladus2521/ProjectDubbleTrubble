@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -279,6 +280,8 @@ public class GazerController : MonoBehaviour
         for (int i = 0; i < sprayAttack._projectileAmount; i++) {
 
             GameObject projectile = Instantiate(_gazerPrefab, _transform.position + _faceMoveDirection * sprayAttack._spawnDistance, Quaternion.identity);
+            CapsuleCollider boxCollider = projectile.GetComponent<CapsuleCollider>();
+            boxCollider.enabled = false;
             ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
             projectile.GetComponent<Rigidbody>().isKinematic = true;
             projectile.transform.SetParent(transform.parent);
@@ -302,6 +305,7 @@ public class GazerController : MonoBehaviour
                     _moveProjectileCoroutine = null;
                     projectile.GetComponent<Rigidbody>().isKinematic = false;
                     projectile.GetComponent<Rigidbody>().AddForce(_faceMoveDirection * sprayAttack._projectileAddedForce, ForceMode.Impulse);
+                    boxCollider.enabled = true;
                 });
             });
             
@@ -337,6 +341,7 @@ public class GazerController : MonoBehaviour
             // Vector3 direction2 = Quaternion.Euler(0, shotgunAttack._bulletSpread, 0) * _faceMoveDirection;
             Vector3 direction2 = Quaternion.Euler(0, shotgunAttack._bulletSpread * (i + 1), 0) * _faceMoveDirection;
             bullets.Add(Instantiate(_gazerPrefab, _transform.position + direction2 * shotgunAttack._spawnDistance, Quaternion.identity));
+            bullets[spawnedBullets].GetComponent<CapsuleCollider>().enabled = false;
             ProjectileController projectileController1 = bullets[spawnedBullets].GetComponent<ProjectileController>();
             bullets[spawnedBullets].transform.SetParent(emptyForPerformance.transform);
             bullets[spawnedBullets].transform.localScale = new Vector3(shotgunAttack._bulletSize, shotgunAttack._bulletSize, shotgunAttack._bulletSize);
@@ -350,6 +355,7 @@ public class GazerController : MonoBehaviour
 
         //same for the middle one
         bullets.Add(Instantiate(_gazerPrefab, _transform.position + _faceMoveDirection * shotgunAttack._spawnDistance, Quaternion.identity));
+        bullets[spawnedBullets].GetComponent<CapsuleCollider>().enabled = false;
         ProjectileController projectileController3 = bullets[spawnedBullets].GetComponent<ProjectileController>();
         bullets[spawnedBullets].transform.SetParent(emptyForPerformance.transform);
         bullets[spawnedBullets].transform.localScale = new Vector3(shotgunAttack._bulletSize, shotgunAttack._bulletSize, shotgunAttack._bulletSize);
@@ -366,6 +372,7 @@ public class GazerController : MonoBehaviour
             // Vector3 direction3 = Quaternion.Euler(0, -shotgunAttack._bulletSpread, 0) * _faceMoveDirection;
             Vector3 direction3 = Quaternion.Euler(0, -shotgunAttack._bulletSpread * (i + 1), 0) * _faceMoveDirection;
             bullets.Add(Instantiate(_gazerPrefab, _transform.position + direction3 * shotgunAttack._spawnDistance, Quaternion.identity));
+            bullets[spawnedBullets].GetComponent<CapsuleCollider>().enabled = false;
             ProjectileController projectileController2 = bullets[spawnedBullets].GetComponent<ProjectileController>();
             bullets[spawnedBullets].transform.SetParent(emptyForPerformance.transform);
             bullets[spawnedBullets].transform.localScale = new Vector3(shotgunAttack._bulletSize, shotgunAttack._bulletSize, shotgunAttack._bulletSize);
@@ -401,6 +408,7 @@ public class GazerController : MonoBehaviour
             bullet.transform.SetParent(transform.parent);
             bullet.GetComponent<Rigidbody>().isKinematic = false;
             bullet.GetComponent<Rigidbody>().AddForce(_faceMoveDirection * shotgunAttack._bulletAddedForce, ForceMode.Impulse);
+            bullet.GetComponent<CapsuleCollider>().enabled = true;
             yield return new WaitForSeconds(shotgunAttack._fireRate);
         }
         StopCoroutine(_moveProjectileCoroutine);
