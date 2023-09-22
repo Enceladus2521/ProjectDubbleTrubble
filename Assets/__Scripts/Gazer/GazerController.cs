@@ -284,6 +284,7 @@ public class GazerController : MonoBehaviour
             projectile.transform.SetParent(transform.parent);
             projectileController._life = sprayAttack._projectileLife;
             projectileController._currentSpeed = sprayAttack._projectileSpeed;
+            projectileController._currentDamage = sprayAttack._damage;
             projectile.transform.localScale = Vector3.zero;
 
             if (_moveProjectileCoroutine != null) {
@@ -342,6 +343,7 @@ public class GazerController : MonoBehaviour
             bullets[spawnedBullets].GetComponent<Rigidbody>().isKinematic = true;
             projectileController1._life = shotgunAttack._bulletLife;
             projectileController1._currentSpeed = shotgunAttack._bulletSpeed;
+            projectileController1._currentDamage = shotgunAttack._damage;
             bullets[spawnedBullets].transform.localScale = Vector3.zero;
             spawnedBullets++;
         }
@@ -354,6 +356,7 @@ public class GazerController : MonoBehaviour
         bullets[spawnedBullets].GetComponent<Rigidbody>().isKinematic = true;
         projectileController3._life = shotgunAttack._bulletLife;
         projectileController3._currentSpeed = shotgunAttack._bulletSpeed;
+        projectileController3._currentDamage = shotgunAttack._damage;
         bullets[spawnedBullets].transform.localScale = Vector3.zero;
         spawnedBullets++;
 
@@ -369,6 +372,7 @@ public class GazerController : MonoBehaviour
             bullets[spawnedBullets].GetComponent<Rigidbody>().isKinematic = true;
             projectileController2._life = shotgunAttack._bulletLife;
             projectileController2._currentSpeed = shotgunAttack._bulletSpeed;
+            projectileController2._currentDamage = shotgunAttack._damage;
             bullets[spawnedBullets].transform.localScale = Vector3.zero;
             spawnedBullets++;
         }

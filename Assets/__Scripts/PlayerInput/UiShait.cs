@@ -30,7 +30,7 @@ public class UiShait : MonoBehaviour
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
     private void Update()
-    {            
+    { 
         //set the ui to the player position
         player1Ui.transform.position = players[0].transform.position + new Vector3(0,UIyOffset,0);
         player2Ui.transform.position = players[1].transform.position + new Vector3(0,UIyOffset,0);

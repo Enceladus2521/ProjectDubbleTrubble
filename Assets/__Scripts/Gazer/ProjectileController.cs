@@ -8,6 +8,7 @@ public class ProjectileController : MonoBehaviour
     [Header("Gazer")]
     [SerializeField] private float _defaultSpeed = 1f;
     [SerializeField] public int _life;
+    [SerializeField] private int _damage = 1;
 
     [Header("Face")]
     [SerializeField] private GameObject _face;
@@ -39,7 +40,7 @@ public class ProjectileController : MonoBehaviour
     private Vector3 _faceMoveDirection;
     private List<IAttack> _currentAttackPool = new List<IAttack>();
     private IAttack _currentAttack;
-    private int _currentDamage;
+    public int _currentDamage;
     public float _currentSpeed;
 
 
