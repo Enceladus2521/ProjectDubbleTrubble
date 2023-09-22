@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,7 @@ public class GameManager : MonoBehaviour
 {
     
     [Header("Phase Settings")]
-    [SerializeField] private float _timeBeforePhase1 = 1f;
-    [SerializeField] private float _phase1Duration = 1f;
-    [SerializeField] private float _gazerSizePhase1 = 1f;
-    [SerializeField] private float _timeBeforePhase2 = 1f;
-    [SerializeField] private float _phase2Duration = 1f;
-    [SerializeField] private float _gazerSizePhase2 = 1f;
-    [SerializeField] private GameObject _gazerPrefab;
+    [SerializeField] private PhaseSetup _phaseSetup;
 
     [Header("UI Settings")]
     [SerializeField] private GameObject _gameOverScreen;
@@ -20,42 +15,47 @@ public class GameManager : MonoBehaviour
 
 
     public static GameManager instance = null;
+    public static event Action<Phase> OnPhaseChange;
     private float _startTime;
-    private bool _spawnedGazer1 = false;
-    private bool _spawnedGazer2 = false;
-    private bool _gameOver = false;
+    private float _currentTimeSince;
+    private List<Phase> _phases;
+    private Phase _currentPhase;
+    private bool _phaseRunning = false;
 
 
     private void Awake()
     {
         instance = this;
         _startTime = Time.time;
+        _phases = _phaseSetup._phases;
+        if (_phases.Count > 0) {
+            _currentPhase = _phases[0];
+        }
+        else {
+            Debug.LogError("No phases in phase setup");
+        }
     }
 
 
     private void Update() {
-        if (Time.time - _startTime > _timeBeforePhase1 && Time.time - _startTime < _timeBeforePhase1 + _phase1Duration && !_spawnedGazer1) {
-            //phase 1
-            Debug.Log("Start phase 1");
-            GameObject obj = Instantiate(_gazerPrefab, new Vector3(0, 0.001f, 0), Quaternion.identity);
-            obj.transform.SetParent(transform);
-            obj.transform.localScale = new Vector3(_gazerSizePhase1, _gazerSizePhase1, _gazerSizePhase1);
-            _spawnedGazer1 = true;
+        _currentTimeSince = Time.time - _startTime;
+
+        if (_currentTimeSince > _currentPhase._timeBefore && _currentTimeSince < _currentPhase._timeBefore + _currentPhase._duration) {
+            if (!_phaseRunning) {
+                OnPhaseChange?.Invoke(_currentPhase);
+            }
         }
-        else if (Time.time - _startTime > _timeBeforePhase1 + _phase1Duration + _timeBeforePhase2 && Time.time - _startTime < _timeBeforePhase1 + _phase1Duration + _timeBeforePhase2 + _phase2Duration && !_spawnedGazer2) {
-            //phase 2
-            Debug.Log("Start phase 2");
-            GameObject obj = Instantiate(_gazerPrefab, new Vector3(0, 0.001f, 0), Quaternion.identity);
-            obj.transform.SetParent(transform);
-            obj.transform.localScale = new Vector3(_gazerSizePhase2, _gazerSizePhase2, _gazerSizePhase2);
-            _spawnedGazer2 = true;
-        }
-        else if (Time.time - _startTime > _timeBeforePhase1 + _phase1Duration + _timeBeforePhase2 + _phase2Duration && !_gameOver) {
-            //game over
-            _gameOver = true;
-            //GameOver();
+        else if (_currentTimeSince > _currentPhase._timeBefore + _currentPhase._duration + _currentPhase._timeAfter) {
+            _startTime = Time.time;
+            if (_phases.IndexOf(_currentPhase) < _phases.Count - 1) {
+                _currentPhase = _phases[_phases.IndexOf(_currentPhase) + 1];
+            }
+            else {
+                Debug.Log("No more phases");
+            }
         }
     }
+
 
     public void GameOver() {
         Time.timeScale = 0;

@@ -1,23 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class GazerController : MonoBehaviour
 {
     
-    [Header("Gazer Settings")]
-    [SerializeField] private float _speed = 1f;
-    [SerializeField] private float _growthRate = 1f;
-    [SerializeField] private float _minSize = 1f;
-    [SerializeField] private float _maxSize = 1f;
-    [SerializeField] private float _damage = 1f;
+    [Header("Gazer")]
+    [SerializeField] private float _defaultSpeed = 1f;
+    [SerializeField] private float _defaultSize = 1f;
+    [SerializeField] private GameObject _gazerPrefab;
     [SerializeField] private float _knockback = 500f;
     [SerializeField] private float _knockbackTime = 1f;
-    [SerializeField] private bool _canCharge = true;
-    [SerializeField] private float _chargeSpeed = 1f;
-    [SerializeField] private float _chargeTime = 1f;
-    [SerializeField] private float _chargeCooldown = 1f;
 
 
     [Header("Face")]
@@ -43,17 +36,25 @@ public class GazerController : MonoBehaviour
     private Rigidbody _rigidbody;
     private Transform _transform;
     private float _startTime;
-    private bool _charging = false;
+    private bool _isAttacking = false;
     private List<GameObject> _players;
     
     private GameObject _cameraMain;
     private Vector3 _cameraMainRight;
     private float _time;
     private Vector3 _faceMoveDirection;
+    private List<IAttack> _currentAttackPool = new List<IAttack>();
+    private IAttack _currentAttack;
+    private int _currentDamage;
+    private float _currentSpeed;
+    private int _chargesLeft = 0;
+    private bool _attackOver = true;
+    private bool _needNewAttack = true;
+    private Coroutine _moveProjectileCoroutine;
 
 
     private void OnValidate() {
-        _trailEffect.SetBool("isSpawning", false);
+        _trailEffect.SetBool("isSpawning", true);
     }
 
     private void Awake()
@@ -71,14 +72,23 @@ public class GazerController : MonoBehaviour
         _trailEffect.SetVector2("TrailLifetime", _trailLifetime);
         _trailEffect.SetFloat("TrailScale", _trailParticleSize);
         _trailEffect.SetBool("isSpawning", _enabled);
+
+        _currentSpeed = _defaultSpeed;
+        _transform.localScale = new Vector3(_defaultSize, _defaultSize, _defaultSize);
+
+        GameManager.OnPhaseChange += changeCurrentAttackPool;
+    }
+
+    private void OnDestroy() {
+        GameManager.OnPhaseChange -= changeCurrentAttackPool;
     }
 
 
     private void Start() {
         //get random direction
-        Vector3 direction = new Vector3(Random.Range(-1f,1f), 0, Random.Range(-1f,1f));
+        Vector3 direction = new Vector3(UnityEngine.Random.Range(-1f,1f), 0, UnityEngine.Random.Range(-1f,1f));
         direction.Normalize();
-        _rigidbody.velocity = direction * _speed;
+        _rigidbody.velocity = direction * _currentSpeed;
 
         //get players
         _players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
@@ -87,13 +97,10 @@ public class GazerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.CompareTag("Bounds")){
-            if (_transform.localScale.x < _maxSize) {
-                _transform.localScale *= _growthRate;
-            }
 
             //add +-10 degrees to current direction
             Vector3 direction = _rigidbody.velocity;
-            direction = Quaternion.Euler(0, Random.Range(-10f,10f), 0) * direction;
+            direction = Quaternion.Euler(0, UnityEngine.Random.Range(-10f,10f), 0) * direction;
             direction.Normalize();
             
 
@@ -110,21 +117,47 @@ public class GazerController : MonoBehaviour
             else if (direction.x < 0f && direction.x > -0.1f) {
                 direction.x = -0.1f;
             }
-            _rigidbody.velocity = direction * _speed;
+            _rigidbody.velocity = direction * _currentSpeed;
         }
         else if (other.gameObject.CompareTag("Player")) {
-            other.gameObject.GetComponent<PlayerMovement>().TakeDamage((int)_damage);
+            other.gameObject.GetComponent<PlayerMovement>().TakeDamage((int)_currentDamage);
             other.gameObject.GetComponent<PlayerMovement>().Bounce(transform, _knockback, _knockbackTime);
             //Debug.Log("Player hit by gazer");
+        }
+
+        if (_chargesLeft <= 0) {
+            _isAttacking = false;
+        }
+        else {
+            StartCoroutine(charge());
         }
     }
 
 
     private void Update() {
-        if (Time.time - _startTime > _chargeCooldown && !_charging && _canCharge) {
-            _charging = true;
-            StartCoroutine(charge());
+        if (_currentAttackPool.Count == 0) {
         }
+        else {
+            if (_currentAttack == null && _isAttacking == false) {
+                _currentAttack = _currentAttackPool[UnityEngine.Random.Range(1, _currentAttackPool.Count)];
+                _currentDamage = _currentAttack._damage;
+                _needNewAttack = false;
+            }
+            else if (_isAttacking == false && _needNewAttack == true) {
+                _currentAttack = _currentAttackPool[UnityEngine.Random.Range(1, _currentAttackPool.Count)];
+                _currentDamage = _currentAttack._damage;
+                _needNewAttack = false;
+            }
+            else {
+                //if the cooldown of the current attack is over, start the attack
+                if (Time.time - _startTime > _currentAttack._cooldown) {
+                    if (!_isAttacking && _attackOver) startAttack();
+                }
+            }
+        }
+
+
+
 
 
         Vector3 gazerMoveDirection = _rigidbody.velocity;
@@ -177,24 +210,6 @@ public class GazerController : MonoBehaviour
         }
     }
 
-
-    private IEnumerator charge() {
-        _rigidbody.velocity = Vector3.zero;
-        yield return new WaitForSeconds(_chargeTime);
-        
-        List<GameObject> players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
-        GameObject player = players[Random.Range(0, players.Count)];
-
-        Vector3 direction = player.transform.position - _transform.position;
-        direction.y = 0;
-        direction.Normalize();
-        _rigidbody.velocity = direction * _chargeSpeed;
-        _startTime = Time.time;
-        _charging = false;
-    }
-
-
-
     private void OnDrawGizmos() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _moveRadius);
@@ -209,7 +224,200 @@ public class GazerController : MonoBehaviour
         Gizmos.DrawRay(transform.position, _face.transform.localPosition * 30f);
     }
 
+
+    private void changeCurrentAttackPool(Phase newPhase) {
+        _currentAttackPool = newPhase._attackPool;
+        _currentSpeed = newPhase._speed;
+        _transform.localScale = new Vector3(newPhase._size, newPhase._size, newPhase._size);
+    }
+
+
+    private void startAttack() {
+        _isAttacking = true;
+        _attackOver = false;
+
+        switch (_currentAttack._attackType) {
+            case EAttackTypes.charge:
+                _chargesLeft = (_currentAttack as ChargeAttack)._chargesAmount;
+                StartCoroutine(charge());
+                break;
+            case EAttackTypes.spray:
+                StartCoroutine(spray());
+                break;
+            case EAttackTypes.shotgun:
+                StartCoroutine(shotgun());
+                break;
+            default:
+                Debug.LogError("Attack type not found");
+                break;
+        }
+    }
+
+
+    private IEnumerator charge() {
+        ChargeAttack chargeAttack = _currentAttack as ChargeAttack;
+        _chargesLeft--;
+        _rigidbody.velocity = Vector3.zero;
+        yield return new WaitForSeconds(chargeAttack._chargeTime);
+        
+        List<GameObject> players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
+        GameObject player = players[UnityEngine.Random.Range(0, players.Count)];
+
+        Vector3 direction = player.transform.position - _transform.position;
+        direction.y = 0;
+        direction.Normalize();
+        _rigidbody.velocity = direction * chargeAttack._chargeSpeed;
+        _startTime = Time.time;
+
+        _attackOver = true;
+        _needNewAttack = true;
+    }
+
+
+    private IEnumerator spray() {
+        SprayAttack sprayAttack = _currentAttack as SprayAttack;
+        for (int i = 0; i < sprayAttack._projectileAmount; i++) {
+
+            GameObject projectile = Instantiate(_gazerPrefab, _transform.position + _faceMoveDirection * sprayAttack._spawnDistance, Quaternion.identity);
+            ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
+            projectile.GetComponent<Rigidbody>().isKinematic = true;
+            projectile.transform.SetParent(transform.parent);
+            projectileController._life = sprayAttack._projectileLife;
+            projectileController._currentSpeed = sprayAttack._projectileSpeed;
+            projectile.transform.localScale = Vector3.zero;
+
+            if (_moveProjectileCoroutine != null) {
+                StopCoroutine(_moveProjectileCoroutine);
+                _moveProjectileCoroutine = null;
+            }
+            else {
+                _moveProjectileCoroutine = StartCoroutine(moveProjectile(projectile, sprayAttack._spawnDistance));
+            }
+
+            //LeanTween the projectile, so it will grow from 0 to the given projectileSize
+            LeanTween.scale(projectile, Vector3.zero, 0.0000001f).setOnComplete(() => {
+                LeanTween.scale(projectile, new Vector3(sprayAttack._projectileSize, sprayAttack._projectileSize, sprayAttack._projectileSize), sprayAttack._projectileScaleSpeed).setOnComplete(() => {
+                    StopCoroutine(_moveProjectileCoroutine);
+                    _moveProjectileCoroutine = null;
+                    projectile.GetComponent<Rigidbody>().isKinematic = false;
+                    projectile.GetComponent<Rigidbody>().AddForce(_faceMoveDirection * sprayAttack._projectileAddedForce, ForceMode.Impulse);
+                });
+            });
+            
+            // Debug.Log("FireRate: " + sprayAttack._fireRate);
+            yield return new WaitForSeconds(sprayAttack._fireRate);
+        }
+        _startTime = Time.time;
+        _attackOver = true;
+        _isAttacking = false;
+        _needNewAttack = true;
+    }
+
+
+    private IEnumerator shotgun() {
+        ShotgunAttack shotgunAttack = _currentAttack as ShotgunAttack;
+        int spawnedBullets = 0;
+        List<GameObject> bullets = new List<GameObject>();
+
+        GameObject emptyForPerformance = new GameObject();
+        emptyForPerformance.transform.SetParent(transform);
+        emptyForPerformance.transform.localPosition = _transform.position + _faceMoveDirection * shotgunAttack._spawnDistance;
+
+        if (_moveProjectileCoroutine != null) {
+                StopCoroutine(_moveProjectileCoroutine);
+                _moveProjectileCoroutine = null;
+        }
+        else {
+            _moveProjectileCoroutine = StartCoroutine(moveProjectile(emptyForPerformance, shotgunAttack._spawnDistance));
+        }
+
+
+        for (int i = 0; i < shotgunAttack._bulletLeftAndRight; i++) {
+            // Vector3 direction2 = Quaternion.Euler(0, shotgunAttack._bulletSpread, 0) * _faceMoveDirection;
+            Vector3 direction2 = Quaternion.Euler(0, shotgunAttack._bulletSpread * (i + 1), 0) * _faceMoveDirection;
+            bullets.Add(Instantiate(_gazerPrefab, _transform.position + direction2 * shotgunAttack._spawnDistance, Quaternion.identity));
+            ProjectileController projectileController1 = bullets[spawnedBullets].GetComponent<ProjectileController>();
+            bullets[spawnedBullets].transform.SetParent(emptyForPerformance.transform);
+            bullets[spawnedBullets].transform.localScale = new Vector3(shotgunAttack._bulletSize, shotgunAttack._bulletSize, shotgunAttack._bulletSize);
+            bullets[spawnedBullets].GetComponent<Rigidbody>().isKinematic = true;
+            projectileController1._life = shotgunAttack._bulletLife;
+            projectileController1._currentSpeed = shotgunAttack._bulletSpeed;
+            bullets[spawnedBullets].transform.localScale = Vector3.zero;
+            spawnedBullets++;
+        }
+
+        //same for the middle one
+        bullets.Add(Instantiate(_gazerPrefab, _transform.position + _faceMoveDirection * shotgunAttack._spawnDistance, Quaternion.identity));
+        ProjectileController projectileController3 = bullets[spawnedBullets].GetComponent<ProjectileController>();
+        bullets[spawnedBullets].transform.SetParent(emptyForPerformance.transform);
+        bullets[spawnedBullets].transform.localScale = new Vector3(shotgunAttack._bulletSize, shotgunAttack._bulletSize, shotgunAttack._bulletSize);
+        bullets[spawnedBullets].GetComponent<Rigidbody>().isKinematic = true;
+        projectileController3._life = shotgunAttack._bulletLife;
+        projectileController3._currentSpeed = shotgunAttack._bulletSpeed;
+        bullets[spawnedBullets].transform.localScale = Vector3.zero;
+        spawnedBullets++;
+
+
+        //same for the other side
+        for (int i = 0; i < shotgunAttack._bulletLeftAndRight; i++) {
+            // Vector3 direction3 = Quaternion.Euler(0, -shotgunAttack._bulletSpread, 0) * _faceMoveDirection;
+            Vector3 direction3 = Quaternion.Euler(0, -shotgunAttack._bulletSpread * (i + 1), 0) * _faceMoveDirection;
+            bullets.Add(Instantiate(_gazerPrefab, _transform.position + direction3 * shotgunAttack._spawnDistance, Quaternion.identity));
+            ProjectileController projectileController2 = bullets[spawnedBullets].GetComponent<ProjectileController>();
+            bullets[spawnedBullets].transform.SetParent(emptyForPerformance.transform);
+            bullets[spawnedBullets].transform.localScale = new Vector3(shotgunAttack._bulletSize, shotgunAttack._bulletSize, shotgunAttack._bulletSize);
+            bullets[spawnedBullets].GetComponent<Rigidbody>().isKinematic = true;
+            projectileController2._life = shotgunAttack._bulletLife;
+            projectileController2._currentSpeed = shotgunAttack._bulletSpeed;
+            bullets[spawnedBullets].transform.localScale = Vector3.zero;
+            spawnedBullets++;
+        }
+
+
+        //Loop through all the projectiles, ad LeanTween to them, so they will grow from 0 to the given projectileSize
+        //add no force to them
+        //the next projectiles should start it's lean tween only if the one is finished
+        foreach (GameObject bullet in bullets)
+        {
+            LeanTween.scale(bullet, Vector3.zero, 0.0000001f).setOnComplete(() => {
+                LeanTween.scale(bullet, new Vector3(shotgunAttack._bulletSize, shotgunAttack._bulletSize, shotgunAttack._bulletSize), shotgunAttack._bulletScaleSpeed);
+            });
+
+            while (bullet.transform.localScale.x < shotgunAttack._bulletSize) {
+                yield return null;
+            }
+        }
+
+
+        foreach (GameObject bullet in bullets)
+        {
+            bullet.transform.SetParent(transform.parent);
+            bullet.GetComponent<Rigidbody>().isKinematic = false;
+            bullet.GetComponent<Rigidbody>().AddForce(_faceMoveDirection * shotgunAttack._bulletAddedForce, ForceMode.Impulse);
+            yield return new WaitForSeconds(shotgunAttack._fireRate);
+        }
+        StopCoroutine(_moveProjectileCoroutine);
+        _moveProjectileCoroutine = null;
+
+
+        _startTime = Time.time;
+        _attackOver = true;
+        _isAttacking = false;
+        _needNewAttack = true;
+    }
+
+
+
+    private IEnumerator moveProjectile(GameObject obj, float distance) {
+
+        while (true) {
+            obj.transform.position = _transform.position + _faceMoveDirection * distance;
+            obj.transform.rotation = Quaternion.LookRotation(_faceMoveDirection);
+            yield return null;
+        }
+    }
 }
+
 
 [System.Serializable]
 public enum LookDirection {
