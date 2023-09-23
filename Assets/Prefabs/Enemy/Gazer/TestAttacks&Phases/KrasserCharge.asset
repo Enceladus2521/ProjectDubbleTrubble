@@ -9,18 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee5671657af36046a0075a71fd60c8e, type: 3}
-  m_Name: SprayAttack
+  m_Script: {fileID: 11500000, guid: 400c7edfc647eeb4f9d70f6d4c3202f4, type: 3}
+  m_Name: KrasserCharge
   m_EditorClassIdentifier: 
-  _attackType: 2
+  _attackType: 0
   _cooldown: 3
   _damage: 1
-  _projectileAmount: 10
-  _projectileScaleSpeed: 0.5
-  _projectileAddedForce: 50
-  _spawnDistance: 10
-  _fireRate: 2
-  _projectileSpeed: 8
-  _projectileLife: 2
-  _projectileSize: 2.4
-  _projectileSpread: 0
+  _chargeTime: 1.8
+  _chargeSpeed: 40
+  _chargesAmount: 3

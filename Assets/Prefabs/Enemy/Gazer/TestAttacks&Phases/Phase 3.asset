@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 133c9532089cb5f45a88d91c70e65107, type: 3}
-  m_Name: Phase1
+  m_Name: Phase 3
   m_EditorClassIdentifier: 
   _timeBefore: 1
   _timeAfter: 1
-  _duration: 1
-  _speed: 15
-  _size: 2.5
+  _duration: 9999
+  _speed: 20
+  _size: 3.3
   _attackPool:
-  - {fileID: 11400000, guid: d4e3bd5034930134fb4de7a9bd040b48, type: 2}
-  - {fileID: 11400000, guid: e70ab7f667aeb884ab9d9c15be41a134, type: 2}
+  - {fileID: 11400000, guid: 1299046fd500ba340ac99f2bf7979456, type: 2}

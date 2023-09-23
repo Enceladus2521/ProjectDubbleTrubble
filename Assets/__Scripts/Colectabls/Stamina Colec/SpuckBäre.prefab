@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3.58, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.51, y: 3.51, z: 3.51}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1214307594684520231}
   m_Father: {fileID: 0}
@@ -96,7 +96,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartVelocity: 15
-  PlayerDamage: 1
+  SpawnDistance: 0
+  TimeToLive: 15
+  spreadAngle: 0
+  subProjectiles: 0
+  subProjectilePrefab: {fileID: 0}
+  TimeInputIsDisabled: 1.5
 --- !u!1 &5505262513478966578
 GameObject:
   m_ObjectHideFlags: 0

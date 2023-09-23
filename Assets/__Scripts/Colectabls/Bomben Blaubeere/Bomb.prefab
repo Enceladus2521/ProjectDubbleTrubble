@@ -279,7 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartVelocity: 4
   SpawnDistance: 1
-  TimeToLive: 15
+  TimeToLive: 5
   spreadAngle: 0
   subProjectiles: 0
   subProjectilePrefab: {fileID: 0}
