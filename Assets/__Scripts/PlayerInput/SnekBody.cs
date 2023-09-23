@@ -94,7 +94,11 @@ public class SnekBody : MonoBehaviour
 
 
 
-            
+            //set layer to 15
+            bodyPart.layer = 15;
+            //add sphere collider
+            SphereCollider sphereCollider = bodyPart.AddComponent<SphereCollider>();
+            sphereCollider.radius = 0.2f;
             
             bodyPart.transform.SetParent(transform);
             bodyParts.Add(bodyPart);
@@ -135,7 +139,7 @@ public class SnekBody : MonoBehaviour
 
             if (transform.childCount == 0)
             {
-
+                
             }
             else
             {

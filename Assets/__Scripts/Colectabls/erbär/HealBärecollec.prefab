@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1837938149310226371
+--- !u!1 &80788168642747290
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6776776357211292496}
-  - component: {fileID: 3536774117817801972}
-  - component: {fileID: 5640957910653447439}
+  - component: {fileID: 5412578080132422464}
+  - component: {fileID: 4620319718812152412}
+  - component: {fileID: 2667169183634419206}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -18,36 +18,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6776776357211292496
+--- !u!4 &5412578080132422464
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837938149310226371}
+  m_GameObject: {fileID: 80788168642747290}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6681734033268919487}
+  m_Father: {fileID: 7311876654320235089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3536774117817801972
+--- !u!33 &4620319718812152412
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837938149310226371}
+  m_GameObject: {fileID: 80788168642747290}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5640957910653447439
+--- !u!23 &2667169183634419206
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837938149310226371}
+  m_GameObject: {fileID: 80788168642747290}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e0aab9832d895864ea77c8ff7a0175a1, type: 2}
+  - {fileID: 2100000, guid: 2d05e1a3cbb641440b0a0d8f7e94d54a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5689132090573171957
+--- !u!1 &2002460046187474986
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,39 +91,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6681734033268919487}
-  - component: {fileID: 703533034342289954}
-  - component: {fileID: 9002241322711513406}
+  - component: {fileID: 7311876654320235089}
+  - component: {fileID: 8425244353708158542}
+  - component: {fileID: 9042978256843473172}
   m_Layer: 0
-  m_Name: Staminacollec
+  m_Name: "HealB\xE4recollec"
   m_TagString: Untagged
-  m_Icon: {fileID: 2800000, guid: 2e8113252e9a1b245a81dc384ae86446, type: 3}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6681734033268919487
+--- !u!4 &7311876654320235089
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5689132090573171957}
+  m_GameObject: {fileID: 2002460046187474986}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.29, z: -12.73}
+  m_LocalPosition: {x: -24.05, y: 2.29, z: -12.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6776776357211292496}
+  - {fileID: 5412578080132422464}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &703533034342289954
+--- !u!135 &8425244353708158542
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5689132090573171957}
+  m_GameObject: {fileID: 2002460046187474986}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -138,22 +138,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9002241322711513406
+--- !u!114 &9042978256843473172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5689132090573171957}
+  m_GameObject: {fileID: 2002460046187474986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71fc83d389542194b8a69422be4e979e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3befd4bb33c40a94c998c717b1907f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 100
   pickupDistance: 2.5
   Muschable: 1
-  MunschPrefab: {fileID: 1156659392830566020, guid: efb1c66841e810f4e953e9f1e368260d,
+  MunschPrefab: {fileID: 5165582941711479573, guid: e5ebea4437f20df4fa972e646db721ed,
     type: 3}
-  addMaxStamina: 0
-  staminaAmount: 100
+  addMaxHealth: 0
+  healAmount: 1

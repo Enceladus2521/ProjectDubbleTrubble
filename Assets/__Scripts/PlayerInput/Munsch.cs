@@ -72,6 +72,7 @@ public class Munsch : MonoBehaviour
             GameObject bodyPartClone = Instantiate(bodyPart, bodyPart.transform.position, bodyPart.transform.rotation);
             bodyPartClone.transform.SetParent(bodyPart.transform.parent);
             bodyPartClone.transform.localScale = bodyPart.transform.localScale;
+            bodyPartClone.GetComponent<Collider>().enabled = false;
 
             LeanTween.scale(bodyPartClone, BaseScale * scaleAmount, scaleSpeed);
             while (bodyPartClone.transform.localScale.x < BaseScale.x * scaleAmount) yield return null;           
@@ -104,6 +105,7 @@ public class Munsch : MonoBehaviour
             GameObject bodyPartClone = Instantiate(bodyPart, bodyPart.transform.position, bodyPart.transform.rotation);
             bodyPartClone.transform.SetParent(bodyPart.transform.parent);
             bodyPartClone.transform.localScale = bodyPart.transform.localScale;
+            bodyPartClone.GetComponent<Collider>().enabled = false;
 
             LeanTween.scale(bodyPartClone, BaseScale * scaleAmount, scaleSpeed);
             while (bodyPartClone.transform.localScale.x < BaseScale.x * scaleAmount) yield return null;
