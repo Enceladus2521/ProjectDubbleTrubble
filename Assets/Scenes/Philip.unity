@@ -177,6 +177,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2202003202051389940, guid: 0646bc86cd5ac704db1d819abc63211a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2571972969693594912, guid: 0646bc86cd5ac704db1d819abc63211a,
         type: 3}
       propertyPath: m_LocalRotation.y
@@ -186,6 +191,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.000000010954159
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303912434517381169, guid: 0646bc86cd5ac704db1d819abc63211a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8804112060315202273, guid: 0646bc86cd5ac704db1d819abc63211a,
         type: 3}
@@ -1753,21 +1763,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1911976708117398879, guid: f70ca373a80aa684189753cbca5f5d8f,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1911976708117398879, guid: f70ca373a80aa684189753cbca5f5d8f,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1911976708117398879, guid: f70ca373a80aa684189753cbca5f5d8f,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1911976708117398879, guid: f70ca373a80aa684189753cbca5f5d8f,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.58
       objectReference: {fileID: 0}
@@ -1816,6 +1811,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6304125944229840999, guid: f70ca373a80aa684189753cbca5f5d8f,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304125944229840999, guid: f70ca373a80aa684189753cbca5f5d8f,
+        type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1839,21 +1844,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SandCastle02 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1011092252136368047, guid: 59d05bc49445a054cb780910fbf0a222,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1011092252136368047, guid: 59d05bc49445a054cb780910fbf0a222,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1011092252136368047, guid: 59d05bc49445a054cb780910fbf0a222,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1011092252136368047, guid: 59d05bc49445a054cb780910fbf0a222,
         type: 3}

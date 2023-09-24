@@ -12,15 +12,18 @@ public class GazerController : MonoBehaviour
     [SerializeField] private GameObject _gazerPrefab;
     [SerializeField] private float _knockback = 500f;
     [SerializeField] private float _knockbackTime = 1f;
+    [SerializeField] private bool _canMove = true;
+    [SerializeField] private bool _canAttack = true;
 
 
     [Header("Face")]
     [SerializeField] private GameObject _face;
-    [SerializeField] private GameObject _eye1;
-    [SerializeField] private GameObject _eye2;
     [SerializeField] private LookDirection _lookDirection = LookDirection.Right;
     [SerializeField] private float _moveRadius = 1f;
     [SerializeField] private float _moveSpeed = 1f;
+    [SerializeField] private FaceAnimator _faceAnimator;
+    [SerializeField] private FaceAnim _angryFace;
+    [SerializeField] private FaceAnim _obsessedFace;
 
     [Header("TrailVFX")]
     [SerializeField] private UnityEngine.VFX.VisualEffect _trailEffect;
@@ -32,6 +35,8 @@ public class GazerController : MonoBehaviour
     [SerializeField] private float _trailWidth = 1f;
     
 
+
+    public static event Action<GameObject> OnChangeFocusedPlayer;
 
 
     private Rigidbody _rigidbody;
@@ -52,6 +57,7 @@ public class GazerController : MonoBehaviour
     private bool _attackOver = true;
     private bool _needNewAttack = true;
     private Coroutine _moveProjectileCoroutine;
+    private GameObject _focusedPlayer;
 
 
     private void OnValidate() {
@@ -77,6 +83,8 @@ public class GazerController : MonoBehaviour
         _currentSpeed = _defaultSpeed;
         _transform.localScale = new Vector3(_defaultSize, _defaultSize, _defaultSize);
 
+        _faceAnimator = _face.GetComponentInChildren<FaceAnimator>();
+
         GameManager.OnPhaseChange += changeCurrentAttackPool;
     }
 
@@ -89,10 +97,18 @@ public class GazerController : MonoBehaviour
         //get random direction
         Vector3 direction = new Vector3(UnityEngine.Random.Range(-1f,1f), 0, UnityEngine.Random.Range(-1f,1f));
         direction.Normalize();
+
+        if (!_canMove) {
+            direction = Vector3.zero;
+        }
+
         _rigidbody.velocity = direction * _currentSpeed;
 
         //get players
         _players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
+        _focusedPlayer = _players[0];
+
+        StartCoroutine(getClosestPlayer());
     }
 
 
@@ -136,7 +152,7 @@ public class GazerController : MonoBehaviour
 
 
     private void Update() {
-        if (_currentAttackPool.Count == 0) {
+        if (_currentAttackPool.Count == 0 || _canAttack == false) {
         }
         else {
             if (_currentAttack == null && _isAttacking == false) {
@@ -157,9 +173,12 @@ public class GazerController : MonoBehaviour
             }
         }
 
-
-
-
+        if (_isAttacking == true) {
+            _faceAnimator._currentFaceAnim = _angryFace;
+        }
+        else {
+            _faceAnimator._currentFaceAnim = _obsessedFace;
+        }
 
         Vector3 gazerMoveDirection = _rigidbody.velocity;
         _trailEffect.SetVector3("TrailDirection", gazerMoveDirection * -1f);
@@ -170,23 +189,11 @@ public class GazerController : MonoBehaviour
         _trailEffect.SetFloat("SpawnRate", gazerMoveDirection.magnitude * _trailSpawnRate);
 
 
-        //rotate eye1 in direction of the player
         if (_players.Count > 0) {
-            //eye1
-            Vector3 direction1 = _players[0].transform.position - _eye1.transform.position;
-            direction1.y = 0;
-            direction1.Normalize();
-            _eye1.transform.rotation = Quaternion.LookRotation(direction1);
 
-            //eye2
-            Vector3 direction2 = _players[0].transform.position - _eye2.transform.position;
-            direction2.y = 0;
-            direction2.Normalize();
-            _eye2.transform.rotation = Quaternion.LookRotation(direction2);
+            //faceMoveDirection should be the direction from the gazer to the focused player
+            Vector3 faceMoveDirection = _focusedPlayer.transform.position - transform.position;
 
-
-
-            Vector3 faceMoveDirection = (direction1 + direction2) / 2;
 
             //make face follow the player by the average of the two eyes
             //make sure the face is at max distance of _moveRadius
@@ -429,6 +436,26 @@ public class GazerController : MonoBehaviour
             obj.transform.position = _transform.position + _faceMoveDirection * distance;
             obj.transform.rotation = Quaternion.LookRotation(_faceMoveDirection);
             yield return null;
+        }
+    }
+
+    private IEnumerator getClosestPlayer() {
+        GameObject playerTemp;
+        playerTemp = _players[0];
+        while (true) {
+            //get closest player
+            float closestDistance = Mathf.Infinity;
+            foreach (GameObject player in _players) {
+                float distance = Vector3.Distance(player.transform.position, transform.position);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    playerTemp = player;
+                }
+            }
+            _focusedPlayer = playerTemp;
+            OnChangeFocusedPlayer?.Invoke(_focusedPlayer);
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
