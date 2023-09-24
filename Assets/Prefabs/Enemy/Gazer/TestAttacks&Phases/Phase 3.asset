@@ -15,8 +15,8 @@ MonoBehaviour:
   _timeBefore: 5
   _timeAfter: 0
   _duration: 9999
-  _speed: 15
-  _size: 5
+  _speed: 25
+  _size: 3.5
   _attackPool:
   - {fileID: 11400000, guid: d4e3bd5034930134fb4de7a9bd040b48, type: 2}
   - {fileID: 11400000, guid: 1299046fd500ba340ac99f2bf7979456, type: 2}
