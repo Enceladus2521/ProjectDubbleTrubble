@@ -48,6 +48,11 @@ public class GazerSoundEffects : MonoBehaviour
         audioSource.outputAudioMixerGroup = _audioMixerGroup;
         audioSource.clip = _gazerplayerHit;
         audioSource.Play();
+
+        int rand = Random.Range(0, 2);
+        if (rand == 1) {
+            gazerGiggle();
+        }
         Destroy(audioObj, audioSource.clip.length);
     }
 
