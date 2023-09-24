@@ -8,6 +8,8 @@ public class FaceAnimator : MonoBehaviour
 
     [SerializeField] private FaceAnim _angryFace;
     [SerializeField] private FaceAnim _obsessedFace;
+    [SerializeField] private FaceAnim _evilGrinFace;
+    [SerializeField] private FaceAnim _sadgeFace;
     [SerializeField] private float _timeBetweenFrames = 0.5f;
 
 
@@ -32,6 +34,8 @@ public class FaceAnimator : MonoBehaviour
 
     private IEnumerator changeFace() {
         while (true) {
+            if (_currentFaceAnim == null) Debug.LogError("No face anim selected");
+
             for (int i = 0; i < _currentFaceAnim.faces.Count; i++) {
                 _spriteRenderer.sprite = _currentFaceAnim.faces[i];
                 foreach (GameObject faceAnim in _faceAnims) {

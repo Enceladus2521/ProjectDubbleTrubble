@@ -93,7 +93,7 @@ MonoBehaviour:
   maxTurnSpeed: 10
   MaxHealth: 6
   invincibilityTime: 1
-  MaxStamina: 35
+  MaxStamina: 99999
   StaminaRegenSpeed: 10
   StaminaRegenDelay: 0.5
   StaminaDrainSpeed: 5
