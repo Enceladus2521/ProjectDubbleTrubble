@@ -19,4 +19,4 @@ MonoBehaviour:
   _size: 3.5
   _attackPool:
   - {fileID: 11400000, guid: d4e3bd5034930134fb4de7a9bd040b48, type: 2}
-  - {fileID: 11400000, guid: 1299046fd500ba340ac99f2bf7979456, type: 2}
+  - {fileID: 11400000, guid: e09258afaa08d4d36baf960abd1d09d4, type: 2}

@@ -288,7 +288,7 @@ MonoBehaviour:
   _life: 0
   _face: {fileID: 1382721658171851246}
   _eye1: {fileID: 6156056506847404774}
-  _moveRadius: 1
+  _moveRadius: 0.2
   _moveSpeed: 1
   _trailEffect: {fileID: 7263540231684233967}
   _enabled: 1
