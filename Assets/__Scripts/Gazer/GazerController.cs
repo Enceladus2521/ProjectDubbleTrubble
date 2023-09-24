@@ -18,7 +18,7 @@ public class GazerController : MonoBehaviour
 
     [Header("Face")]
     [SerializeField] private GameObject _face;
-    [SerializeField] private LookDirection _lookDirection = LookDirection.Right;
+    //[SerializeField] private LookDirection _lookDirection = LookDirection.Right;
     [SerializeField] private float _moveRadius = 1f;
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] public FaceAnimator _faceAnimator;

@@ -213,7 +213,6 @@ MonoBehaviour:
   _canMove: 1
   _canAttack: 1
   _face: {fileID: 1120855839119365758}
-  _lookDirection: 0
   _moveRadius: 0.19
   _moveSpeed: 1
   _faceAnimator: {fileID: 4527076592140006688}

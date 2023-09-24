@@ -44,6 +44,12 @@ public class GameManager : MonoBehaviour
 
 
     private void Update() {
+
+        //if Escape is pressed, quit the game
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
+        }
+
         _currentTimeSince = Time.time - _startTime;
 
         if (_currentTimeSince > _currentPhase._timeBefore && _currentTimeSince < _currentPhase._timeBefore + _currentPhase._duration) {

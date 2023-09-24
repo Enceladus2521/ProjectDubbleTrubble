@@ -27,7 +27,9 @@ SOFTWARE.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+
 
 [CanEditMultipleObjects]
 [CustomEditor(typeof(SpringBone))]
@@ -78,3 +80,5 @@ public class SpringBoneEditor : Editor
         }
     }
 }
+
+#endif

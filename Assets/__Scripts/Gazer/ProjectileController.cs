@@ -8,13 +8,13 @@ public class ProjectileController : MonoBehaviour
     [Header("Gazer")]
     [SerializeField] private float _defaultSpeed = 1f;
     [SerializeField] public int _life;
-    [SerializeField] private int _damage = 1;
+    //[SerializeField] private int _damage = 1;
 
     [Header("Face")]
     [SerializeField] private GameObject _face;
     [SerializeField] private GameObject _eye1;
     [SerializeField] private GameObject _eye2;
-    [SerializeField] private LookDirection _lookDirection = LookDirection.Right;
+    //[SerializeField] private LookDirection _lookDirection = LookDirection.Right;
     [SerializeField] private float _moveRadius = 1f;
     [SerializeField] private float _moveSpeed = 1f;
 
