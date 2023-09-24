@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133c9532089cb5f45a88d91c70e65107, type: 3}
   m_Name: Phase1
   m_EditorClassIdentifier: 
-  _timeBefore: 1
-  _timeAfter: 1
-  _duration: 1
+  _timeBefore: 0
+  _timeAfter: 0
+  _duration: 45
   _speed: 15
-  _size: 2.5
+  _size: 1
   _attackPool:
   - {fileID: 11400000, guid: d4e3bd5034930134fb4de7a9bd040b48, type: 2}
   - {fileID: 11400000, guid: e70ab7f667aeb884ab9d9c15be41a134, type: 2}
