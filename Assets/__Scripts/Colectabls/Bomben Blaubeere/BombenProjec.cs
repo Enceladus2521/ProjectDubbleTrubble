@@ -12,6 +12,8 @@ public class BombenProjec : BaseProjectile
     [SerializeField] private float GazerExplosionForce = 500f;
 
     private int segments = 50;
+    private float _startTime;
+    private Coroutine _changeGazerFaceCoroutine;
 
     public override void OnPlayerHit()
     {
@@ -66,8 +68,9 @@ public class BombenProjec : BaseProjectile
             }
             else if (collider.CompareTag("Gazer"))
             {
-                collider.GetComponent<Rigidbody>().AddExplosionForce(GazerExplosionForce, transform.position, ExplosionRadius);
-                
+                // _changeGazerFaceCoroutine ??= StartCoroutine(sadgeGazerFace(collider));
+                collider.GetComponent<GazerSoundEffects>().gazerSob();
+                collider.GetComponent<Rigidbody>().AddExplosionForce(GazerExplosionForce, transform.position, ExplosionRadius);                
             }
         }
         Destroy(gameObject);
@@ -79,4 +82,18 @@ public class BombenProjec : BaseProjectile
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, ExplosionRadius);
     }
+
+
+    // private IEnumerator sadgeGazerFace(Collider col) {
+    //     _startTime = Time.time;
+    //     col.gameObject.GetComponent<GazerController>()._faceOverwrite = true;
+    //     col.gameObject.GetComponent<GazerController>()._faceAnimator._currentFaceAnim = col.gameObject.GetComponent<GazerController>()._sadgeFace;
+    //     while (_startTime - Time.time < 2f) {
+    //         Debug.Log("sadge");
+    //         yield return null;
+    //     }
+    //     Debug.Log("not sadge");
+    //     col.gameObject.GetComponent<GazerController>()._faceOverwrite = false;
+    //     _changeGazerFaceCoroutine = null;
+    // }
 }

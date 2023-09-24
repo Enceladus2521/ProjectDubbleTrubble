@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 133c9532089cb5f45a88d91c70e65107, type: 3}
-  m_Name: Phase 2
+  m_Name: TestPhase
   m_EditorClassIdentifier: 
-  _timeBefore: 5
-  _timeAfter: 0
-  _duration: 45
-  _speed: 20
-  _size: 2.5
+  _timeBefore: 1
+  _timeAfter: 1
+  _duration: 100000000
+  _speed: 60
+  _size: 2
   _attackPool:
   - {fileID: 11400000, guid: d4e3bd5034930134fb4de7a9bd040b48, type: 2}
-  - {fileID: 11400000, guid: 1299046fd500ba340ac99f2bf7979456, type: 2}
-  - {fileID: 11400000, guid: b6f0c7fac68c84f878a1c375ae3ac1cc, type: 2}
-  - {fileID: 11400000, guid: b4537f37b6767d54683a7209aaf1144c, type: 2}
+  - {fileID: 11400000, guid: 4053bf4e069e25e438957a44b93c0dcc, type: 2}

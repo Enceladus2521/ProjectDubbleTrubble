@@ -21,9 +21,11 @@ public class GazerController : MonoBehaviour
     [SerializeField] private LookDirection _lookDirection = LookDirection.Right;
     [SerializeField] private float _moveRadius = 1f;
     [SerializeField] private float _moveSpeed = 1f;
-    [SerializeField] private FaceAnimator _faceAnimator;
+    [SerializeField] public FaceAnimator _faceAnimator;
     [SerializeField] private FaceAnim _angryFace;
     [SerializeField] private FaceAnim _obsessedFace;
+    [SerializeField] private FaceAnim _evilGrinFace;
+    [SerializeField] public FaceAnim _sadgeFace;
 
     [Header("TrailVFX")]
     [SerializeField] private UnityEngine.VFX.VisualEffect _trailEffect;
@@ -38,9 +40,12 @@ public class GazerController : MonoBehaviour
 
     public static event Action<GameObject> OnChangeFocusedPlayer;
 
+    public bool _faceOverwrite = false;
+
 
     private Rigidbody _rigidbody;
     private Transform _transform;
+    private GazerSoundEffects _gazerSoundEffects;
     private float _startTime;
     private bool _isAttacking = false;
     private List<GameObject> _players;
@@ -68,6 +73,7 @@ public class GazerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _transform = GetComponent<Transform>();
+        _gazerSoundEffects = GetComponent<GazerSoundEffects>();
         _cameraMain = Camera.main.gameObject;
         _cameraMainRight = _cameraMain.transform.right;
         _startTime = Time.time;
@@ -115,6 +121,8 @@ public class GazerController : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.CompareTag("Bounds")){
 
+            _gazerSoundEffects.gazerEnviHit();
+
             //add +-10 degrees to current direction
             Vector3 direction = _rigidbody.velocity;
             direction = Quaternion.Euler(0, UnityEngine.Random.Range(-10f,10f), 0) * direction;
@@ -137,6 +145,7 @@ public class GazerController : MonoBehaviour
             _rigidbody.velocity = direction * _currentSpeed;
         }
         else if (other.gameObject.CompareTag("Player")) {
+            _gazerSoundEffects.gazerPlayerHit();
             other.gameObject.GetComponent<PlayerMovement>().TakeDamage((int)_currentDamage);
             other.gameObject.GetComponent<PlayerMovement>().Bounce(transform, _knockback, _knockbackTime);
             //Debug.Log("Player hit by gazer");
@@ -173,10 +182,11 @@ public class GazerController : MonoBehaviour
             }
         }
 
+
         if (_isAttacking == true) {
-            _faceAnimator._currentFaceAnim = _angryFace;
+            _faceAnimator._currentFaceAnim = _evilGrinFace;
         }
-        else {
+        else if (_faceOverwrite == false) {
             _faceAnimator._currentFaceAnim = _obsessedFace;
         }
 
@@ -266,6 +276,7 @@ public class GazerController : MonoBehaviour
         ChargeAttack chargeAttack = _currentAttack as ChargeAttack;
         _chargesLeft--;
         _rigidbody.velocity = Vector3.zero;
+        _gazerSoundEffects.gazerCharge();
         yield return new WaitForSeconds(chargeAttack._chargeTime);
         
         List<GameObject> players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
@@ -306,6 +317,7 @@ public class GazerController : MonoBehaviour
             }
 
             //LeanTween the projectile, so it will grow from 0 to the given projectileSize
+            _gazerSoundEffects.gazerSpawn();
             LeanTween.scale(projectile, Vector3.zero, 0.0000001f).setOnComplete(() => {
                 LeanTween.scale(projectile, new Vector3(sprayAttack._projectileSize, sprayAttack._projectileSize, sprayAttack._projectileSize), sprayAttack._projectileScaleSpeed).setOnComplete(() => {
                     StopCoroutine(_moveProjectileCoroutine);
@@ -397,6 +409,7 @@ public class GazerController : MonoBehaviour
         //the next projectiles should start it's lean tween only if the one is finished
         foreach (GameObject bullet in bullets)
         {
+            _gazerSoundEffects.gazerSpawn();
             LeanTween.scale(bullet, Vector3.zero, 0.0000001f).setOnComplete(() => {
                 LeanTween.scale(bullet, new Vector3(shotgunAttack._bulletSize, shotgunAttack._bulletSize, shotgunAttack._bulletSize), shotgunAttack._bulletScaleSpeed);
             });
@@ -452,10 +465,13 @@ public class GazerController : MonoBehaviour
                     playerTemp = player;
                 }
             }
+            if (closestDistance < 5f) {
+                // _gazerSoundEffects.gazerCloseCall();
+            }
             _focusedPlayer = playerTemp;
             OnChangeFocusedPlayer?.Invoke(_focusedPlayer);
 
-            yield return new WaitForSeconds(0.1f);
+            yield return null;
         }
     }
 }
