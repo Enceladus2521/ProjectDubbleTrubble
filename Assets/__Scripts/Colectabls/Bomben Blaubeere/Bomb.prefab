@@ -283,8 +283,8 @@ MonoBehaviour:
   spreadAngle: 0
   subProjectiles: 0
   subProjectilePrefab: {fileID: 0}
-  ExplosionRadius: 10
-  ExplosionForce: 15
+  ExplosionRadius: 8
+  ExplosionForce: 200
   TimePlayerCantMove: 1
   ExplosionDamage: 1
   GazerExplosionForce: 500
