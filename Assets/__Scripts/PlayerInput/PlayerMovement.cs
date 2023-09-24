@@ -161,7 +161,9 @@ public class PlayerMovement : MonoBehaviour
         currentHealth -= damage;
         //update healthbar
         UiShait.Instance.updateHealth(playerIndex, currentHealth);
-        if (currentHealth <= 0) Debug.Log("Player died");
+        if (currentHealth <= 0) {
+            GameManager.instance.GameOver(playerIndex);
+        }        
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {

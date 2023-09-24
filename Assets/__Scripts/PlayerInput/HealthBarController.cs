@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBarController : MonoBehaviour
 {
     
     [SerializeField] private GameObject _heartPrefab;
+    [SerializeField] private Sprite _redHeart;
+    [SerializeField] private Sprite _blueHeart;
     [SerializeField] private int _startHealth;
     [SerializeField] private Side _side;
 
@@ -46,11 +49,13 @@ public class HealthBarController : MonoBehaviour
         {
             if (_side == Side.Left) {
                 GameObject heart = Instantiate(_heartPrefab, transform);
+                heart.GetComponent<Image>().sprite = _redHeart;
                 heart.transform.SetParent(transform);
                 heart.transform.localPosition += new Vector3(i * heart.GetComponent<RectTransform>().rect.width + 5, 0, 0);
             }
             else if (_side == Side.Right) {
                 GameObject heart = Instantiate(_heartPrefab, transform);
+                heart.GetComponent<Image>().sprite = _blueHeart;
                 heart.transform.SetParent(transform);
                 heart.transform.localPosition += new Vector3(-i * heart.GetComponent<RectTransform>().rect.width - 5, 0, 0);
             }

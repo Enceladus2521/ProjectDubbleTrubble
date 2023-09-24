@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,7 +11,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PhaseSetup _phaseSetup;
 
     [Header("UI Settings")]
+    [SerializeField] private GameObject _mainCamPosition;
+    [SerializeField] private GameObject _player1WonCamera;
+    [SerializeField] private GameObject _player2WonCamera;
     [SerializeField] private GameObject _gameOverScreen;
+    [SerializeField] private GameObject _gazer;
 
 
 
@@ -26,6 +31,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
         _startTime = Time.time;
         _phases = _phaseSetup._phases;
         if (_phases.Count > 0) {
@@ -57,18 +63,44 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void GameOver() {
-        Time.timeScale = 0;
+    public void GameOver(int playerNumber) {
+        // Time.timeScale = 0;
+        // _gameOverScreen.SetActive(true);
+
+        //blue index 1
+        //red index 0
+
+        _gazer.SetActive(false);
         _gameOverScreen.SetActive(true);
+
+
+        if (playerNumber == 0) {
+            _player1WonCamera.GetComponent<CinemachineVirtualCamera>().Priority = 10;
+        }
+        else if (playerNumber == 1) {
+            _player2WonCamera.GetComponent<CinemachineVirtualCamera>().Priority = 10;
+        }
     }
 
 
     public void Restart() {
         Time.timeScale = 1;
-        _gameOverScreen.SetActive(false);
+        // _gameOverScreen.SetActive(false);
         //get active scene
+
+        
+
+
+        _player1WonCamera.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        _player2WonCamera.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        _gameOverScreen.SetActive(false);
+
         int currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
         UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
+    }
+
+    public void Exit() {
+        Application.Quit();
     }
 
 }
