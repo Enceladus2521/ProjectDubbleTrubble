@@ -13,7 +13,6 @@ public class ProjectileController : MonoBehaviour
     [Header("Face")]
     [SerializeField] private GameObject _face;
     [SerializeField] private GameObject _eye1;
-    [SerializeField] private GameObject _eye2;
     //[SerializeField] private LookDirection _lookDirection = LookDirection.Right;
     [SerializeField] private float _moveRadius = 1f;
     [SerializeField] private float _moveSpeed = 1f;
@@ -128,15 +127,8 @@ public class ProjectileController : MonoBehaviour
             direction1.Normalize();
             _eye1.transform.rotation = Quaternion.LookRotation(direction1);
 
-            //eye2
-            Vector3 direction2 = _players[0].transform.position - _eye2.transform.position;
-            direction2.y = 0;
-            direction2.Normalize();
-            _eye2.transform.rotation = Quaternion.LookRotation(direction2);
 
-
-
-            Vector3 faceMoveDirection = (direction1 + direction2) / 2;
+            Vector3 faceMoveDirection = direction1;
 
             //make face follow the player by the average of the two eyes
             //make sure the face is at max distance of _moveRadius

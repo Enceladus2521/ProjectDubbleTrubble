@@ -458,7 +458,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _phaseSetup: {fileID: 11400000, guid: ee1588797f441c44db8833568836b76c, type: 2}
+  _mainCamPosition: {fileID: 0}
+  _player1WonCamera: {fileID: 0}
+  _player2WonCamera: {fileID: 0}
   _gameOverScreen: {fileID: 1981902415}
+  _gazer: {fileID: 0}
 --- !u!4 &570884564
 Transform:
   m_ObjectHideFlags: 0
@@ -584,6 +588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioMixerGroup: {fileID: 1357162151946628828, guid: 0e06373dd2693b34a8cc16358952c7f5,
     type: 2}
+  _isMainmenu: 0
   _musicCut: {fileID: 8300000, guid: 53f94208c57b5524bb709f31fb336485, type: 3}
   _musicLoop: {fileID: 8300000, guid: 0b84245a1ecea9a4694b52d0c57504e8, type: 3}
   _isLooping: 0
