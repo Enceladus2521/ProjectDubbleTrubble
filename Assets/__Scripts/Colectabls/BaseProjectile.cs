@@ -5,15 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class BaseProjectile : MonoBehaviour
 {
-    [SerializeField] float StartVelocity = 15f;
+    [SerializeField] protected float StartVelocity = 15f;
     [Tooltip("Dont use this!!!!!!")]
     [SerializeField] float SpawnDistance = 0f;
     [SerializeField] protected float TimeToLive = 15f;
-    [SerializeField] float spreadAngle = 0f;
+    [SerializeField] protected float spreadAngle = 0f;
 
     [Header("Subprojectiles")]
-    [SerializeField] int subProjectiles = 0;
-    [SerializeField] GameObject subProjectilePrefab;
+    [SerializeField] protected int subProjectiles = 0;
+    [SerializeField]protected GameObject subProjectilePrefab;
 
     
     private Rigidbody rb;
@@ -29,7 +29,7 @@ public abstract class BaseProjectile : MonoBehaviour
        
     }
     
-    private void Start()
+    public virtual void Start()
     {
         if(SpawnDistance > 0)transform.position += transform.forward * SpawnDistance;
         
@@ -56,6 +56,8 @@ public abstract class BaseProjectile : MonoBehaviour
         
         StartCoroutine(DestroyAfterTime());
     }
+
+   
 
     public virtual IEnumerator DestroyAfterTime()
     {        

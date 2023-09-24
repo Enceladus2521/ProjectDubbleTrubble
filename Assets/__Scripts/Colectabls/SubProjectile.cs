@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+
 public abstract class SubProjectile : MonoBehaviour
 {
     private float StartVelocity = 15f;

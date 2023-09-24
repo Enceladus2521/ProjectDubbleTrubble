@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         currentMaxSpeed = moveStats.maxMoveSpeed;
 
         UiShait.Instance.updateHealth(playerIndex, currentHealth);
-
+        basedScale = transform.localScale;
 
     }
 
@@ -176,6 +176,17 @@ public class PlayerMovement : MonoBehaviour
         invincible = false;        
     }
 
+    private Vector3 basedScale;
+    public IEnumerator ScalePlayerSeltsam(float time, float ScalePercantage)
+    {
+        transform.localScale = basedScale * ScalePercantage;
+        Debug.Log("ScalePlayerSeltsam " + time);       
+            
+        yield return new WaitForSeconds(time);
+        Debug.Log("ResetScale");
+        transform.localScale = basedScale;
+    }
+
     public void Heal(int healAmount)
     {
         currentHealth += healAmount;
@@ -228,6 +239,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Bounce(Transform origen, float bounceForce, float moveDisableTime)
     {
+        StopCoroutine(DisableInput(moveDisableTime));
         StartCoroutine(DisableInput(moveDisableTime));
         rb.AddForce((transform.position - origen.position).normalized * bounceForce, ForceMode.Impulse);
     }

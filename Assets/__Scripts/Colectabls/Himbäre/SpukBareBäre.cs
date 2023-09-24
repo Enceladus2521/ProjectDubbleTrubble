@@ -9,6 +9,7 @@ public class SpukBareBäre : BaseProjectile
     [SerializeField] private float TimeInputIsDisabled = 0.5f;
     public override void OnPlayerHit()
     {
+        //StopCoroutine(Player.GetComponent<PlayerMovement>().DisableInput(TimeInputIsDisabled));
         StartCoroutine(Player.GetComponent<PlayerMovement>().DisableInput(TimeInputIsDisabled));      
     }
 

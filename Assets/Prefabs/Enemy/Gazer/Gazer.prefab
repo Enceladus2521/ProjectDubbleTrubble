@@ -489,8 +489,8 @@ MonoBehaviour:
   _defaultSize: 1
   _gazerPrefab: {fileID: 3249903069434294800, guid: 38dfcb5ba1d99c34d87db9d7ec5687ba,
     type: 3}
-  _knockback: 500
-  _knockbackTime: 1
+  _knockback: 200
+  _knockbackTime: 0.5
   _face: {fileID: 1120855839119365758}
   _eye1: {fileID: 4135803186949570732}
   _eye2: {fileID: 5985292043371493884}

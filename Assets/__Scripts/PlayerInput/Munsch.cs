@@ -88,8 +88,7 @@ public class Munsch : MonoBehaviour
         if(gameObject != null)
         {
             player2.GetComponent<PlayerSpitter>().SpawnProjectile(gameObject);
-        }
-        
+        }     
 
         
     }

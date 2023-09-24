@@ -11,6 +11,7 @@ public abstract class PlayerColectable : MonoBehaviour
     [SerializeField] private float moveSpeed = 100f;
     [SerializeField] private float pickupDistance = 2.5f;
     [SerializeField] private bool Muschable = false;
+    [SerializeField] protected float DelayedMunsch = 0f;
     [SerializeField] private GameObject MunschPrefab;
     protected GameObject player;
     
@@ -41,10 +42,17 @@ public abstract class PlayerColectable : MonoBehaviour
     {
         if (Muschable)
         {
-            PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
-            playerMovement.Munscher.GetComponent<Munsch>().EatableMunsch(playerMovement.playerIndex, MunschPrefab);
+            StartCoroutine(Munsch());
+            
 
         }
+    }
+
+    IEnumerator Munsch()
+    {
+        yield return new WaitForSeconds(DelayedMunsch);
+        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        playerMovement.Munscher.GetComponent<Munsch>().EatableMunsch(playerMovement.playerIndex, MunschPrefab);
     }
  
         
@@ -57,8 +65,8 @@ public abstract class PlayerColectable : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, moveSpeed * Time.deltaTime);
             yield return null;
         }
-        Colect();
         Debug.Log("Collected");
+        Colect();        
         Munscher();
         
         Destroy(gameObject);
