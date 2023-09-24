@@ -10,6 +10,7 @@ public class BombenProjec : BaseProjectile
     [SerializeField] private float TimePlayerCantMove = 1f;
     [SerializeField] private int ExplosionDamage = 1;
     [SerializeField] private float GazerExplosionForce = 500f;
+    [SerializeField] private GameObject explosionEffect;
 
     private int segments = 50;
     private float _startTime;
@@ -73,6 +74,9 @@ public class BombenProjec : BaseProjectile
                 collider.GetComponent<Rigidbody>().AddExplosionForce(GazerExplosionForce, transform.position, ExplosionRadius);                
             }
         }
+        GameObject explosion = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        explosion.transform.localScale = new Vector3(ExplosionRadius, ExplosionRadius, ExplosionRadius);
+        Destroy(explosion, 5f);
         Destroy(gameObject);
     }
 
