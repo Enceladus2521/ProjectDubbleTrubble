@@ -18,12 +18,24 @@ public class UiShait : MonoBehaviour
 
     [SerializeField] float UIyOffset = 1f;
 
-    private GameObject[] players;
+    private GameObject[] players = new GameObject[2];
     
     private void Awake()
     {
-        Instance = this;
-        players = GameObject.FindGameObjectsWithTag("Player");
+        Instance = this;       
+
+        GameObject[] besserePOlayers = GameObject.FindGameObjectsWithTag("Player");
+        PlayerMovement player = besserePOlayers[0].GetComponent<PlayerMovement>();
+        if(player.playerIndex == 0)
+        {
+            players[0] = besserePOlayers[0];
+            players[1] = besserePOlayers[1];
+        }
+        else
+        {
+            players[0] = besserePOlayers[1];
+            players[1] = besserePOlayers[0];
+        }
     }
 
     /// <summary>

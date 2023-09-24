@@ -3350,7 +3350,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: KBR
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Play
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -3768,7 +3768,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6700533696475963896}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5694223, y: 0.000000015813946, z: -0.000000010954159, w: 0.8220452}
+  m_LocalRotation: {x: 0.5694223, y: -0.000000015813942, z: 0.0000000109541585, w: 0.8220452}
   m_LocalPosition: {x: -0.043288022, y: 26.66529, z: -12.904006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
