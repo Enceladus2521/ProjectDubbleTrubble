@@ -73,7 +73,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartVelocity: 30
-  TimeToLive: 15
+  SpawnDistance: 0
+  TimeToLive: 6
   spreadAngle: 15
   subProjectiles: 3
   subProjectilePrefab: {fileID: 8374598085547936201, guid: 4bfff27db06b1a643a155a1fca9df4e2,
