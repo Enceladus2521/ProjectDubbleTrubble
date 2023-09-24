@@ -65,6 +65,7 @@ GameObject:
   - component: {fileID: 5102630332553131196}
   - component: {fileID: 4861297503269942271}
   - component: {fileID: 7676494607610259797}
+  - component: {fileID: 302610538965558272}
   m_Layer: 6
   m_Name: Gazer
   m_TagString: Gazer
@@ -228,6 +229,29 @@ MonoBehaviour:
   _trailParticleSize: 5
   _trailWidth: 1
   _faceOverwrite: 0
+--- !u!114 &302610538965558272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272807104775068068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dec1ac03e059f14db5521d5a81e8177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioMixerGroup: {fileID: 7141886355090675718, guid: 0e06373dd2693b34a8cc16358952c7f5,
+    type: 2}
+  _gazerEnviHit: {fileID: 8300000, guid: 8b2b15dcaefecad4ca3951ce808b3eae, type: 3}
+  _gazerplayerHit: {fileID: 8300000, guid: 3940ca0499c8b4b4195329b458827b51, type: 3}
+  _gazerCharge: {fileID: 8300000, guid: d212ef06e3900c14ebb6b5a90dd2bbfa, type: 3}
+  _gazerSpawn: {fileID: 8300000, guid: 651e047ad3691dd4380af9c30dcb70ab, type: 3}
+  _gazerGiggle: {fileID: 8300000, guid: f5d713423eedef94488c8fab1498c60a, type: 3}
+  _gazerLaugh: {fileID: 8300000, guid: 9a2e630663f06074797d869328fbc09e, type: 3}
+  _gazerCloseCall: {fileID: 8300000, guid: 417c6e28bc8ea3946bff3b0a8164ee7f, type: 3}
+  _gazerSob: {fileID: 8300000, guid: 9a681b46da9ab9040af10f7f1ef72a4a, type: 3}
+  _gazerWaffling: {fileID: 8300000, guid: 2e7ed5a432507954eb9e290840efac6f, type: 3}
 --- !u!1 &3614423269781317019
 GameObject:
   m_ObjectHideFlags: 0
