@@ -407,7 +407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da44b556dbe7044589bcdf90f06a502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 3
+  _health: 8
   _deathEffect: {fileID: 0}
 --- !u!4 &1911976708117398879 stripped
 Transform:

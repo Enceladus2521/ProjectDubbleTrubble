@@ -56,7 +56,7 @@ MonoBehaviour:
   lightPhase1: {fileID: 6083026061686580620}
   lightPhase2: {fileID: 8176392736553250904}
   lightPhase3: {fileID: 5937117268823251364}
-  phase1Duration: 48
+  phase1Duration: 50
   phase2Duration: 50
   obstacles:
   - {fileID: 5353273729006801394, guid: fedb98495fcae4536a64c8a57c4dce0a, type: 3}

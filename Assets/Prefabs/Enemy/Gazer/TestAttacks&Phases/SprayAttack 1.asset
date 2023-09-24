@@ -19,8 +19,8 @@ MonoBehaviour:
   _projectileScaleSpeed: 0.5
   _projectileAddedForce: 50
   _spawnDistance: 10
-  _fireRate: 1.5
-  _projectileSpeed: 15
+  _fireRate: 0.8
+  _projectileSpeed: 20
   _projectileLife: 9999
   _projectileSize: 2.4
   _projectileSpread: 0
