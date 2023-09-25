@@ -49,8 +49,8 @@ public class SnekBody : MonoBehaviour
     {
 
         //move player1 playerdistance/2 to the left and player2 playerdistance/2 to the right
-        player1.transform.position = new Vector3(transform.position.x - playerDistance / 2, transform.position.y, transform.position.z);
-        player2.transform.position = new Vector3(transform.position.x + playerDistance / 2, transform.position.y, transform.position.z);
+        player1.transform.position = new Vector3(transform.position.x + playerDistance / 2, transform.position.y, transform.position.z);
+        player2.transform.position = new Vector3(transform.position.x - playerDistance / 2, transform.position.y, transform.position.z);
 
         //rotate player1 away from player2
         player1.transform.LookAt(player2.transform);
